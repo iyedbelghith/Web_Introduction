@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Web, vu de l'intérieur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Instrument+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- La fenêtre de navigateur autour de chaque slide -->
+  <header class="chrome">
+    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="nav-btns">
+      <button class="icon-btn" id="prevBtn" aria-label="Slide précédente">&larr;</button>
+      <button class="icon-btn" id="nextBtn" aria-label="Slide suivante">&rarr;</button>
+    </div>
+    <div class="urlbar" aria-live="polite">
+      <span class="scheme">https://</span><span class="host">web-intro.dev</span><span class="path" id="path">/</span><span class="caret" aria-hidden="true"></span>
+    </div>
+    <span class="status" id="status">200 OK</span>
+    <div class="tools">
+      <button class="tool-btn" id="sourceBtn" title="Voir le HTML de cette slide (S)">&lt;/&gt; Source</button>
+      <button class="tool-btn" id="notesBtn" title="Notes (N)">Notes</button>
+      <button class="tool-btn" id="fullBtn" title="Plein écran (F)">Plein écran</button>
+    </div>
+  </header>
+
+  <main class="viewport" id="viewport">
+    <div class="stage" id="stage">
+
+      <!-- Décor du template JEENISo : blob avec feuilles + logo -->
+      <div class="brand-blob" aria-hidden="true"></div>
+      <img class="brand-logo" src="logo.png" alt="JEENISo · Junior Entreprise ENISo">
+
+      <!-- ================= ACCUEIL ================= -->
+      <section class="slide cover deco-full" data-path="/" data-chapter="Accueil">
+        <p class="eyebrow">Training session · HTML / CSS · 2026–2027</p>
+        <h1 class="display">Le Web,<br>vu de<br>l'<span class="mark">intérieur</span>.</h1>
+        <p class="lead">De l'URL que l'on tape jusqu'à ta propre page en ligne. Cette présentation est elle-même une page web.</p>
+        <p class="hint"><kbd>&rarr;</kbd> pour avancer · <kbd>S</kbd> pour voir le code de n'importe quelle slide</p>
+        <p class="credit">Réalisé par <b>Iyed Belghith</b> · Responsable projet</p>
+        <p class="hashtag">#QualityIsOurBusiness</p>
+        <aside class="notes">Bienvenue. Montrez la barre d'adresse : chaque slide a sa propre URL et son code HTTP, comme un vrai site. Appuyez sur S pour afficher le HTML de la slide. Promesse : dans 3 heures, chacun aura sa page web en ligne.</aside>
+      </section>
+
+      <section class="slide" data-path="/programme" data-chapter="Accueil">
+        <p class="eyebrow">GET /programme</p>
+        <h2>Le programme</h2>
+        <ol class="route">
+          <li><span class="time">01</span><b>Comment marche le web</b><span>Internet, IP, DNS, HTTP(S)</span></li>
+          <li><span class="time">02</span><b>Front vs back</b><span>Qui fait quoi</span></li>
+          <li><span class="time">03</span><b>Git &amp; GitHub</b><span>Contrôle de version</span></li>
+          <li><span class="time">04</span><b>HTML</b><span>Outils, Emmet, structure</span></li>
+          <li><span class="time">05</span><b>CSS</b><span>Style, Flexbox, Grid, responsive</span></li>
+          <li><span class="time">06</span><b>JavaScript</b><span>Bases, DOM, événements</span></li>
+          <li><span class="time">07</span><b>Publier</b><span>Mise en ligne et défi final</span></li>
+        </ol>
+        <aside class="notes">Présentez le déroulé rapidement. C'est pratique : peu de théorie, beaucoup d'exercices. À la fin, leur page sera en ligne avec son propre lien.</aside>
+      </section>
+
+      <!-- ================= COMMENT MARCHE LE WEB ================= -->
+
+      <section class="slide" data-path="/internet-vs-web" data-chapter="Comment marche le web">
+        <p class="eyebrow">Chapitre 1 · Comment marche le web</p>
+        <h2>Internet n'est pas le Web</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">Internet</p>
+            <h3>Les routes</h3>
+            <p>Un réseau géant d'ordinateurs reliés par des câbles, des routeurs et des satellites. Né dans les années 1970–80.</p>
+            <p class="small-note">Transporte : e-mails, WhatsApp, jeux, appels vidéo… et le Web.</p>
+          </div>
+          <div class="card big ink-card">
+            <p class="kicker">Le Web</p>
+            <h3>Les boutiques le long des routes</h3>
+            <p>Des pages reliées entre elles, ouvertes dans un navigateur avec une URL. Inventé par Tim Berners-Lee en 1989.</p>
+            <p class="small-note">Un service parmi d'autres qui circule sur Internet.</p>
+          </div>
+        </div>
+        <aside class="notes">Demandez d'abord : « Internet et le Web, c'est pareil ? » La plupart disent oui. L'image des routes et des boutiques fait le déclic. Règle simple : si ça s'ouvre dans un navigateur avec une URL, c'est le Web.</aside>
+      </section>
+
+      <section class="slide" data-path="/internet-vs-web/tableau" data-chapter="Comment marche le web">
+        <p class="eyebrow">Internet et le Web</p>
+        <h2>La différence, en un tableau</h2>
+        <div class="cmp-table">
+          <span class="ch"></span><span class="ch">Internet</span><span class="ch web">Le Web</span>
+          <span class="rh">Ce que c'est</span><span>Le <b>réseau</b> lui-même : l'infrastructure</span><span>Un <b>service</b> qui utilise ce réseau</span>
+          <span class="rh">Composé de</span><span>Câbles, routeurs, serveurs, protocoles</span><span>Pages, liens, sites web</span>
+          <span class="rh">Protocoles</span><span><code>TCP/IP</code></span><span><code>HTTP / HTTPS</code></span>
+          <span class="rh">On y accède avec</span><span>N'importe quelle application connectée</span><span>Un <b>navigateur</b></span>
+          <span class="rh">Naissance</span><span>1969 – 1983 (ARPANET)</span><span>1989 – 1991 (Tim Berners-Lee)</span>
+        </div>
+        <p class="cmp-test"><b>Le test rapide :</b> si ça s'ouvre dans un navigateur avec une URL, c'est le Web. Si ça marche dans une appli sans pages web (WhatsApp, une console de jeu), ça utilise Internet, mais pas le Web.</p>
+        <aside class="notes">Image à retenir : Internet = les routes, le Web = les boutiques le long des routes. L'e-mail, WhatsApp, les jeux en ligne et Zoom circulent aussi sur Internet sans être le Web. Faites tester le « test rapide » avec 2 ou 3 exemples de la salle.</aside>
+      </section>
+
+      <section class="slide" data-path="/ip-et-mac" data-chapter="Comment marche le web">
+        <p class="eyebrow">Chaque appareil connecté a deux adresses</p>
+        <h2>Adresse IP et adresse MAC</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">Adresse IP · l'identité numérique</p>
+            <p class="addr">192.168.1.1</p>
+            <p>Adresse <b>logique</b> : elle dépend du réseau où tu es connecté. Ton téléphone change d'IP entre la maison et l'école.</p>
+            <p class="small-note">Comme ton adresse postale : elle change si tu déménages.</p>
+          </div>
+          <div class="card big">
+            <p class="kicker">Adresse MAC · l'identité matérielle</p>
+            <p class="addr">00:1A:2B:3C:4D:5E</p>
+            <p>Adresse <b>physique</b> : gravée dans la carte réseau de l'appareil. Elle ne change pas.</p>
+            <p class="small-note">Comme ton numéro de carte d'identité : il te suit partout.</p>
+          </div>
+        </div>
+        <button class="reveal card row arp"><span><b class="mono">ARP</b> crie sur le réseau : « Qui a l'adresse IP 192.168.1.20 ? »</span><span class="answer ok mono">« C'est moi : 00:1A:2B:3C:4D:5E »</span></button>
+        <aside class="notes">Le protocole ARP fait le lien entre les deux : il trouve l'adresse MAC qui correspond à une IP, pour que les appareils se trouvent sur le réseau local. Cliquez la carte ARP pour révéler la réponse. Slide suivante : chacun trouve sa propre IP et sa MAC.</aside>
+      </section>
+
+      <section class="slide" data-path="/pratique/ma-carte-reseau" data-chapter="Comment marche le web">
+        <div class="activity-head">
+          <div><p class="eyebrow">Pratique · sur ton PC</p><h2>Trouve ton IP, ta MAC et ton DNS</h2></div>
+          <div class="row-gap"><span class="score" id="netTally">0 / 4</span><button class="timer" data-seconds="360">6:00</button></div>
+        </div>
+        <div class="grid-2 practice">
+          <div class="stack">
+            <p class="kicker">Ouvre un terminal et tape</p>
+            <pre class="code small"><span class="c"># Windows (cmd)</span>
+ipconfig /all
+nslookup google.com
+ping google.com
+
+<span class="c"># Mac / Linux</span>
+ip a            <span class="c"># ou : ifconfig</span>
+nslookup google.com
+ping -c 4 google.com</pre>
+          </div>
+          <div class="checklist todo" data-tally="netTally">
+            <label class="check"><input type="checkbox" id="n1"><span>Note ton adresse <b>IPv4</b> (ex. 192.168.1.23)</span></label>
+            <label class="check"><input type="checkbox" id="n2"><span>Note ton adresse <b>MAC</b> (« Adresse physique »)</span></label>
+            <label class="check"><input type="checkbox" id="n3"><span>Trouve l'<b>IP de google.com</b> avec <code>nslookup</code></span></label>
+            <label class="check"><input type="checkbox" id="n4"><span>Mesure le <b>temps de réponse</b> avec <code>ping</code> (en ms)</span></label>
+          </div>
+        </div>
+        <p class="lead small">Compare avec ton voisin : vos IP commencent-elles pareil ? Et vos MAC&nbsp;?</p>
+        <aside class="notes">Sur le même Wi-Fi, les IP partagent le même début (ex. 192.168.1.x) car ils sont sur le même LAN ; les MAC sont toutes différentes. nslookup peut donner des IP différentes selon les personnes : Google a beaucoup de serveurs. ping utilise ICMP (slide protocoles). Sur Windows, ouvrir cmd avec Win+R puis « cmd ».</aside>
+      </section>
+
+
+
+      <section class="slide" data-path="/comment-ca-marche" data-chapter="Comment marche le web">
+        <div class="activity-head">
+          <div><p class="eyebrow">Que se passe-t-il quand tu appuies sur Entrée ?</p><h2>Le voyage d'une page</h2></div>
+          <div class="row-gap"><button class="btn" id="journeyStep">Étape suivante</button><button class="btn primary" id="journeyPlay">&#9654; Lancer</button></div>
+        </div>
+        <div class="journey">
+          <div class="node" data-node="0"><b>Ton navigateur</b><span>le client</span></div>
+          <div class="node" data-node="1"><b>Serveur DNS</b><span>l'annuaire</span></div>
+          <div class="node" data-node="2"><b>Serveur web</b><span>stocke le site</span></div>
+          <div class="track"></div>
+          <div class="packet" id="packet">prêt</div>
+        </div>
+        <ol class="steps" id="journeySteps">
+          <li><b>1</b> Tu tapes <code>jeeniso.com</code> et tu appuies sur Entrée.</li>
+          <li><b>2</b> Le navigateur demande au DNS : « Où est www.jeeniso.com ? »</li>
+          <li><b>3</b> Le DNS répond avec l'adresse IP : <code>41.229.10.7</code></li>
+          <li><b>4</b> Le navigateur envoie une requête HTTP : <code>GET /</code></li>
+          <li><b>5</b> Le serveur répond <code>200 OK</code> avec HTML, CSS et JS.</li>
+          <li><b>6</b> Le navigateur dessine la page. Le tout en moins d'une seconde.</li>
+        </ol>
+        <aside class="notes">Lancez l'animation et racontez chaque étape. Puis démo : ouvrez un site, F12, onglet Network (Réseau), rechargez. Montrez les dizaines de requêtes et leurs codes. Allez sur /blabla pour montrer un vrai 404.</aside>
+      </section>
+
+      <section class="slide" data-path="/vocabulaire" data-chapter="Comment marche le web">
+        <p class="eyebrow">Six mots à connaître</p>
+        <h2>Le vocabulaire</h2>
+        <div class="grid-3">
+          <div class="card"><h3 class="mono accent">Client</h3><p>Celui qui demande : ton navigateur.</p></div>
+          <div class="card"><h3 class="mono accent">Serveur</h3><p>Un ordinateur qui répond, jour et nuit.</p></div>
+          <div class="card"><h3 class="mono accent">Adresse IP</h3><p>La vraie adresse numérique d'un ordinateur.</p></div>
+          <div class="card"><h3 class="mono accent">DNS</h3><p>L'annuaire qui traduit les noms en adresses IP.</p></div>
+          <div class="card"><h3 class="mono accent">HTTP</h3><p>La langue qu'ils parlent. GET pour lire, POST pour envoyer.</p></div>
+          <div class="card"><h3 class="mono accent">HTTPS</h3><p>HTTP chiffré : le cadenas dans la barre d'adresse.</p></div>
+        </div>
+        <aside class="notes">Pourquoi le DNS ? Parce que les humains retiennent des noms, les ordinateurs ont besoin de numéros. Comme enregistrer « Maman » dans ton téléphone au lieu de son numéro.</aside>
+      </section>
+
+      <section class="slide" data-path="/protocoles" data-chapter="Comment marche le web">
+        <p class="eyebrow">Les protocoles réseau courants</p>
+        <h2>Qui fait quoi, à quelle couche ?</h2>
+        <div class="proto-table">
+          <span class="ph">Couche</span><span class="ph">Exemple</span><span class="ph">Rôle</span>
+          <span class="layer">Application</span><code>HTTP / HTTPS</code><span>La communication web : HTTP transfère les pages, HTTPS ajoute le chiffrement pour une navigation sécurisée.</span>
+          <span class="layer">Application</span><code>DNS</code><span>L'annuaire d'Internet : traduit les noms de sites (google.com) en adresses IP.</span>
+          <span class="layer">Transport</span><code>TCP / UDP</code><span>TCP livre les données complètes et dans l'ordre (web, e-mail). UDP est plus rapide mais moins fiable (vidéo, jeux).</span>
+          <span class="layer">Réseau</span><code>IP / ICMP</code><span>IP adresse et achemine les paquets. ICMP teste la connexion : c'est lui qu'utilise la commande <code>ping</code>.</span>
+        </div>
+        <div class="grid-2 tcpudp">
+          <div class="card"><h3 class="mono accent">TCP</h3><p>Le livreur qui te remet le colis en main propre et attend ta signature.</p></div>
+          <div class="card"><h3 class="mono" style="color: var(--bad)">UDP</h3><p>Le livreur qui lance le colis par-dessus la clôture. Rapide, mais sans garantie.</p></div>
+        </div>
+        <aside class="notes">Démo de 2 minutes dans un terminal : ping google.com. On voit le DNS transformer le nom en IP, puis ICMP mesurer le temps de réponse. Bonus : tracert (Windows) ou traceroute (Linux) montre tous les routeurs traversés. Pour TCP vs UDP : un appel vidéo préfère perdre une image (UDP) plutôt que geler en attendant (TCP).</aside>
+      </section>
+
+      <section class="slide" data-path="/https" data-chapter="Comment marche le web">
+        <div class="activity-head">
+          <div><p class="eyebrow">Pourquoi le cadenas compte</p><h2>HTTP ou HTTPS ?</h2></div>
+          <button class="btn primary" id="httpsToggle">Passer en HTTPS</button>
+        </div>
+        <div class="wire" id="wire">
+          <div class="wire-end"><b>Ton navigateur</b><span>Wi-Fi du café</span></div>
+          <div class="wire-mid">
+            <p class="wire-proto" id="wireProto">HTTP · en clair</p>
+            <pre class="wire-packet" id="wirePacket"></pre>
+            <p class="wire-spy">Un pirate sur le même Wi-Fi lit ce paquet :</p>
+          </div>
+          <div class="wire-end"><b>Le serveur</b><span>monsite.tn</span></div>
+        </div>
+        <div class="grid-3">
+          <div class="card"><h3>Packet sniffing</h3><p>Lire le trafic non chiffré qui passe sur le réseau.</p></div>
+          <div class="card"><h3>Man-in-the-middle</h3><p>S'interposer entre toi et le serveur pour intercepter.</p></div>
+          <div class="card"><h3>La défense</h3><p>HTTPS, VPN, SSH pour communiquer ; mots de passe forts et 2FA.</p></div>
+        </div>
+        <aside class="notes">Cliquez le bouton pour basculer entre HTTP et HTTPS : en HTTP, le mot de passe se lit en clair ; en HTTPS, le pirate ne voit que du charabia. Message : ne jamais taper un mot de passe sur un site sans cadenas, surtout sur un Wi-Fi public. Aujourd'hui, GitHub Pages donne HTTPS gratuitement à vos sites.</aside>
+      </section>
+
+      <section class="slide" data-path="/anatomie-url" data-chapter="Comment marche le web">
+        <div class="activity-head">
+          <div><p class="eyebrow">Activité · en binôme</p><h2>Décortique une URL</h2></div>
+          <button class="timer" data-seconds="300">5:00</button>
+        </div>
+        <div class="explainer" data-explainer>
+          <div class="url-big" role="group" aria-label="Exemple d'URL">
+            <button class="url-part" data-c="1" data-info="Protocole : comment le navigateur et le serveur communiquent. Le s veut dire que la connexion est chiffrée.">https://</button><button class="url-part" data-c="2" data-info="Domaine : quel site. Le DNS le traduit en adresse IP.">www.souk.tn</button><button class="url-part" data-c="3" data-info="Chemin : quelle page sur ce site.">/produits/chaussures</button><button class="url-part" data-c="4" data-info="Paramètres : options envoyées au serveur, comme un filtre ou une recherche.">?couleur=rouge</button><button class="url-part" data-c="5" data-info="Ancre : saute à un endroit de la page. Jamais envoyée au serveur.">#avis</button>
+          </div>
+          <p class="url-info" data-out>Clique sur une partie de l'URL pour voir son rôle.</p>
+        </div>
+        <p class="lead small">À toi : ouvre 3 sites sur ton téléphone et nomme chaque partie de l'URL à ton voisin.</p>
+        <aside class="notes">Bons exemples : une vidéo YouTube (?v= est un paramètre), une section Wikipédia (#ancre), une recherche Google (?q=). Demandez : qu'est-ce qui change dans l'URL quand on cherche autre chose ?</aside>
+      </section>
+
+      <section class="slide" data-path="/codes-http" data-chapter="Comment marche le web">
+        <p class="eyebrow">Chaque réponse commence par 3 chiffres</p>
+        <h2>Les 5 familles de codes HTTP</h2>
+        <div class="grid-5 codes">
+          <div class="code-fam f1"><b>1xx</b><h3>Information</h3><p>« Attends, je m'en occupe »</p><span>100 Continue</span></div>
+          <div class="code-fam f2"><b>2xx</b><h3>Succès</h3><p>« Voilà ta page »</p><span>200 OK<br>201 Created</span></div>
+          <div class="code-fam f3"><b>3xx</b><h3>Redirection</h3><p>« C'est ailleurs, va là-bas »</p><span>301 Moved<br>304 Not Modified</span></div>
+          <div class="code-fam f4"><b>4xx</b><h3>Erreur client</h3><p>« Tu t'es trompé »</p><span>400 Bad Request<br>401 Unauthorized<br>403 Forbidden<br>404 Not Found</span></div>
+          <div class="code-fam f5"><b>5xx</b><h3>Erreur serveur</h3><p>« On s'est trompé »</p><span>500 Server Error<br>502 Bad Gateway<br>503 Unavailable</span></div>
+        </div>
+        <p class="lead small">Le premier chiffre dit qui est responsable : <span class="mark">4 = le visiteur</span>, <span class="mark">5 = le serveur</span>.</p>
+        <aside class="notes">201 quand on crée un compte. 301 quand un site change d'adresse. 304 : tu as déjà le fichier en cache. 401 : il faut se connecter. 403 : connecté mais pas autorisé. 503 : serveur surchargé, comme le jour des résultats du bac. Regardez la pastille dans notre barre d'adresse : 200 OK.</aside>
+      </section>
+
+      <section class="slide" data-path="/pratique/codes-http" data-chapter="Comment marche le web">
+        <div class="activity-head">
+          <div><p class="eyebrow">Pratique · dans ton navigateur</p><h2>Chasse aux codes HTTP</h2></div>
+          <div class="row-gap"><span class="score" id="httpTally">0 / 4</span><button class="timer" data-seconds="480">8:00</button></div>
+        </div>
+        <div class="grid-2 practice">
+          <div class="stack">
+            <p class="kicker">Prépare tes outils</p>
+            <ol class="flow-list">
+              <li>Ouvre un site que tu aimes</li>
+              <li><kbd>F12</kbd> → onglet <b>Network</b> (Réseau)</li>
+              <li>Recharge la page avec <kbd>F5</kbd></li>
+              <li>Regarde la colonne <b>Status</b></li>
+            </ol>
+          </div>
+          <div class="checklist todo" data-tally="httpTally">
+            <label class="check"><input type="checkbox" id="h1"><span>Trouve un <b class="mono">200</b> : la page elle-même</span></label>
+            <label class="check"><input type="checkbox" id="h2"><span>Trouve un <b class="mono">304</b> : recharge une 2<sup>e</sup> fois</span></label>
+            <label class="check"><input type="checkbox" id="h3"><span>Provoque un <b class="mono">404</b> : tape une page qui n'existe pas</span></label>
+            <label class="check"><input type="checkbox" id="h4"><span>Provoque un <b class="mono">301</b> ou <b class="mono">307</b> : tape <code>http://google.com</code> sans le s</span></label>
+          </div>
+        </div>
+        <p class="lead small">Bonus : combien de requêtes pour charger la page ? Quel fichier est le plus lourd&nbsp;?</p>
+        <aside class="notes">Le 304 apparaît parce que le navigateur a déjà les fichiers en cache. Pour le 301/307, cocher « Preserve log » dans l'onglet Network sinon la redirection disparaît. Les sites d'actualité font souvent plus de 100 requêtes : images, pubs, scripts. Le plus lourd est en général une image ou un script.</aside>
+      </section>
+
+      <!-- ================= FRONT VS BACK ================= -->
+      <section class="slide" data-path="/front-vs-back" data-chapter="Front vs back">
+        <p class="eyebrow">Chapitre 2 · Les deux côtés d'un site</p>
+        <h2>Front-end vs back-end</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">Front-end · la salle du restaurant</p>
+            <dl class="facts">
+              <dt>Tourne dans</dt><dd>ton navigateur</dd>
+              <dt>Rôle</dt><dd>tout ce que tu vois et cliques</dd>
+              <dt>Langages</dt><dd>HTML, CSS, JavaScript</dd>
+              <dt>Outils</dt><dd>React, Angular, Vue</dd>
+            </dl>
+          </div>
+          <div class="card big ink-card">
+            <p class="kicker">Back-end · la cuisine</p>
+            <dl class="facts">
+              <dt>Tourne sur</dt><dd>le serveur</dd>
+              <dt>Rôle</dt><dd>données, logique, sécurité</dd>
+              <dt>Langages</dt><dd>Java, Python, PHP, Node.js</dd>
+              <dt>Bases</dt><dd>PostgreSQL, MySQL, MongoDB</dd>
+            </dl>
+          </div>
+        </div>
+        <p class="lead small"><b>Full-stack</b> = les deux. Aujourd'hui, vous êtes développeurs front-end.</p>
+        <aside class="notes">Exemple Instagram. Front : le fil, l'animation du cœur. Back : stocker les photos, vérifier le mot de passe, choisir les posts à afficher. Quand tu touches le cœur, le front envoie une requête, le back l'enregistre et répond 200 OK.</aside>
+      </section>
+
+      <section class="slide" data-path="/langage-ou-framework" data-chapter="Front vs back">
+        <p class="eyebrow">Deux façons de travailler, en front comme en back</p>
+        <h2>Langage pur ou framework ?</h2>
+        <div class="grid-2 fw">
+          <div class="card big">
+            <p class="kicker">Langage pur · « vanilla »</p>
+            <p>Tu écris tout toi-même en HTML, CSS et JavaScript, <b>sans outil en plus</b>. Comme cuisiner à partir des ingrédients.</p>
+            <pre class="code small">let n = 0;
+btn.addEventListener(<span class="a">"click"</span>, () =&gt; {
+  n++;
+  affichage.textContent = n;
+});</pre>
+            <ul class="ticks small"><li>Tu comprends ce qui se passe</li><li>Léger, rien à installer</li></ul>
+            <ul class="crosses"><li>Beaucoup de code répété sur un gros projet</li></ul>
+          </div>
+          <div class="card big ink-card">
+            <p class="kicker">Framework</p>
+            <p>Un <b>cadre prêt à l'emploi</b> avec ses règles, ses outils et des composants réutilisables. Comme un kit de cuisine guidé.</p>
+            <pre class="code small"><span class="c">// React</span>
+const [n, setN] = useState(0);
+return &lt;button onClick={() =&gt; setN(n + 1)}&gt;
+  {n}
+&lt;/button&gt;;</pre>
+            <ul class="ticks small"><li>Plus rapide sur un gros projet, structure commune</li><li>Grande communauté, beaucoup d'outils</li></ul>
+            <ul class="crosses"><li>Il faut apprendre ses règles en plus du langage</li></ul>
+          </div>
+        </div>
+        <div class="fw-examples">
+          <span><b>Front</b> React · Angular · Vue</span><span><b>CSS</b> Bootstrap · Tailwind</span><span><b>Back</b> Express (Node.js) · Spring Boot (Java) · Django (Python) · Laravel (PHP)</span>
+        </div>
+        <p class="cmp-test"><b>Notre choix aujourd'hui :</b> le langage pur. Un framework n'est que du HTML, du CSS et du JS bien organisés : sans les bases, impossible de bien l'utiliser.</p>
+        <aside class="notes">Les deux codes font la même chose : un compteur qui augmente au clic. En vanilla, on met à jour la page soi-même ; avec React, on change la donnée (n) et l'affichage suit tout seul. Nuance pour les curieux : React est techniquement une bibliothèque (on l'appelle, elle ne nous impose pas toute la structure), alors qu'Angular est un vrai framework. Les frameworks CSS (Bootstrap, Tailwind) sont revus au chapitre CSS.</aside>
+      </section>
+
+      <section class="slide" data-path="/pratique/inspecter" data-chapter="Front vs back">
+        <div class="activity-head">
+          <div><p class="eyebrow">Pratique · dans ton navigateur</p><h2>Modifie un vrai site… chez toi</h2></div>
+          <div class="row-gap"><span class="score" id="inspTally">0 / 4</span><button class="timer" data-seconds="360">6:00</button></div>
+        </div>
+        <div class="grid-2 practice">
+          <div class="checklist todo" data-tally="inspTally">
+            <label class="check"><input type="checkbox" id="i1"><span>Ouvre un site d'actualités, clic droit sur un titre → <b>Inspecter</b></span></label>
+            <label class="check"><input type="checkbox" id="i2"><span>Double-clic sur le texte et écris <b>ton propre titre</b></span></label>
+            <label class="check"><input type="checkbox" id="i3"><span>Dans l'onglet <b>Styles</b>, change la couleur d'un élément</span></label>
+            <label class="check"><input type="checkbox" id="i4"><span>Recharge la page avec <kbd>F5</kbd>… que s'est-il passé&nbsp;?</span></label>
+          </div>
+          <div class="stack">
+            <div class="card"><p class="kicker">Ce que tu viens de prouver</p><p>Tu as modifié le <b>front-end</b> : il vit dans <b>ton navigateur</b>. Le vrai site n'a pas changé.</p></div>
+            <div class="card ink-card"><p class="kicker">Et le back-end ?</p><p>Fais <kbd>Ctrl</kbd>+<kbd>U</kbd> : tu ne vois que du HTML, du CSS et du JS. Le code du serveur reste invisible.</p></div>
+          </div>
+        </div>
+        <aside class="notes">Faites une capture du titre le plus drôle et projetez-le. Point clé : tout ce qui est front peut être modifié par le visiteur. C'est pour ça que la vérification d'un mot de passe ou d'un prix doit toujours se faire côté back-end.</aside>
+      </section>
+
+      <!-- ================= HTML ================= -->
+      <section class="slide" data-path="/environnement" data-chapter="HTML">
+        <p class="eyebrow">Avant de commencer · environnement de développement</p>
+        <h2>Deux outils, cinq minutes</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">Éditeur</p>
+            <h3>VS Code</h3>
+            <p>Éditeur de code puissant et polyvalent développé par Microsoft, pour créer et déboguer des applications web modernes.</p>
+            <p class="small-note">Télécharger : <code>code.visualstudio.com/download</code></p>
+          </div>
+          <div class="card big">
+            <p class="kicker">Extension</p>
+            <h3>Live Server</h3>
+            <p>Recharge automatiquement la page dans le navigateur à chaque sauvegarde.</p>
+            <ol class="mini-steps">
+              <li>Ouvre « Extensions » <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd></li>
+              <li>Cherche « Live Server » et installe</li>
+              <li>Clic droit sur <code>index.html</code> → <b>Open with Live Server</b></li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">Idéalement, demandez aux étudiants d'installer VS Code avant la session. Testez Live Server ensemble : modifiez un mot, sauvegardez, la page se met à jour toute seule.</aside>
+      </section>
+
+      <section class="slide" data-path="/controle-de-version" data-chapter="Git &amp; GitHub">
+        <p class="eyebrow">Chapitre 3 · Définition</p>
+        <h2>Le contrôle de version, c'est quoi ?</h2>
+        <div class="def-grid">
+          <div class="stack def-text">
+            <p class="def-quote">Le <b>contrôle de version</b> (<i>version control</i>) est un système qui <b>enregistre l'historique de toutes les modifications</b> d'un projet : on peut revenir à n'importe quelle version, voir qui a changé quoi et quand, et travailler à plusieurs sans s'écraser.</p>
+            <dl class="acro vc-terms">
+              <dt>Commit</dt><dd>un <b>point de sauvegarde</b> avec un message</dd>
+              <dt>Historique</dt><dd>la liste de tous les commits : on peut <b>revenir en arrière</b></dd>
+              <dt>Branche</dt><dd>une copie parallèle pour <b>tester une idée</b> sans casser ce qui marche</dd>
+              <dt>Fusion</dt><dd>(<i>merge</i>) <b>réunir</b> le travail de plusieurs branches ou personnes</dd>
+            </dl>
+          </div>
+          <div class="stack top">
+            <p class="kicker">L'historique d'un projet</p>
+            <ol class="vc-line">
+              <li><em>a3f9c1</em> Crée la page d'accueil <span>lundi</span></li>
+              <li><em>7b21e0</em> Ajoute le menu <span>mardi</span></li>
+              <li class="branch"><em>c48d2a</em> Essai d'un nouveau design <span>branche « design »</span></li>
+              <li><em>e90f13</em> Corrige un lien cassé <span>mercredi</span></li>
+              <li class="merge"><em>1d6b77</em> Fusionne la branche « design » <span>jeudi</span></li>
+            </ol>
+            <div class="fact-chips"><span><b>Git</b> : l'outil le plus utilisé au monde</span><span><b>GitHub</b>, GitLab, Bitbucket : en ligne</span></div>
+          </div>
+        </div>
+        <aside class="notes">L'image à retenir : les points de sauvegarde d'un jeu vidéo, appliqués au code. Sans contrôle de version, on finit avec index_final_VRAI_v3.html (slide suivante). Git est le logiciel de contrôle de version, installé sur le PC ; GitHub héberge les projets Git en ligne.</aside>
+      </section>
+
+      <section class="slide" data-path="/git" data-chapter="Git &amp; GitHub">
+        <p class="eyebrow">Git : ne plus jamais perdre son travail</p>
+        <h2>Ton dossier ressemble à ça ?</h2>
+        <div class="grid-2">
+          <pre class="code folder">mon-site/
+  index.html
+  index_v2.html
+  index_final.html
+  index_final_VRAI.html
+  <span class="t">index_final_VRAI_v3_ok.html</span></pre>
+          <div class="stack">
+            <h3 class="h3">Git = des points de sauvegarde pour ton code</h3>
+            <p class="lead small">Comme dans un jeu vidéo : tu sauvegardes, tu continues, et tu reviens en arrière si quelque chose casse.</p>
+            <ul class="ticks">
+              <li>Un seul dossier, tout l'historique dedans</li>
+              <li>Qui a changé quoi, et quand</li>
+              <li>Travailler en équipe sans s'écraser</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">Demandez : « Qui a un fichier final_final quelque part ? » Tout le monde rit. Git a été créé en 2005 par Linus Torvalds, le créateur de Linux.</aside>
+      </section>
+
+      <section class="slide" data-path="/git/git-et-github" data-chapter="Git &amp; GitHub">
+        <p class="eyebrow">Tu travailles en local avec Git, tu synchronises en ligne avec GitHub</p>
+        <h2>Git et GitHub</h2>
+        <div class="grid-2 wide-left">
+          <div class="stack">
+            <div class="card"><p class="kicker">Git · l'outil</p><p>Logiciel de versionnement <b>installé sur ton PC</b>. Il gère l'historique de ton code.</p></div>
+            <div class="card ink-card"><p class="kicker">GitHub · la plateforme</p><p>Plateforme <b>en ligne</b> où tu héberges ton code Git pour le partager ou collaborer.</p></div>
+          </div>
+          <div class="stack">
+            <p class="kicker">Les étapes typiques</p>
+            <ol class="flow-list">
+              <li>Créer un dépôt</li>
+              <li>Cloner le dépôt sur ton ordinateur</li>
+              <li>Modifier ton code</li>
+              <li>Sauvegarder les changements (commit)</li>
+              <li>Pousser (push) vers GitHub</li>
+              <li>Mettre à jour (pull) quand d'autres ont travaillé</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="notes">GitHub sert aussi de CV pour développeur : les recruteurs regardent les profils. D'autres plateformes existent (GitLab, Bitbucket), mais toutes utilisent Git.</aside>
+      </section>
+
+      <section class="slide" data-path="/git/simulateur" data-chapter="Git &amp; GitHub">
+        <p class="eyebrow">Essaie · clique les commandes dans l'ordre</p>
+        <h2>De ton dossier à GitHub</h2>
+        <div class="git-cmds">
+          <button class="btn" id="gEdit">Modifier un fichier</button>
+          <button class="btn mono-btn" id="gAdd">git add .</button>
+          <button class="btn mono-btn" id="gCommit">git commit</button>
+          <button class="btn mono-btn primary" id="gPush">git push</button>
+          <button class="btn ghost" id="gReset">Recommencer</button>
+        </div>
+        <div class="git-board">
+          <div class="git-col"><h4>Dossier de travail</h4><div class="git-items" id="gWork"></div></div>
+          <div class="git-col"><h4>Zone de préparation</h4><div class="git-items" id="gStage"></div></div>
+          <div class="git-col"><h4>Dépôt local</h4><div class="git-items" id="gLocal"></div></div>
+          <div class="git-col remote"><h4>GitHub</h4><div class="git-items" id="gRemote"></div></div>
+        </div>
+        <p class="terminal" id="gTerm">$ <span>modifie un fichier pour commencer</span></p>
+        <aside class="notes">Analogie : add = mettre les objets dans un carton, commit = fermer le carton avec une étiquette, push = l'envoyer à l'entrepôt. Cliquez Modifier deux fois, puis add, commit, push.</aside>
+      </section>
+
+      <section class="slide" data-path="/git/commandes" data-chapter="Git &amp; GitHub">
+        <p class="eyebrow">À taper dans le terminal de VS Code</p>
+        <h2>Les commandes Git essentielles</h2>
+        <div class="grid-2 wide-left">
+          <div class="cmd-list">
+            <code>git init</code><span>Crée un dépôt Git local</span>
+            <code>git clone &lt;url&gt;</code><span>Télécharge un dépôt GitHub sur ton PC</span>
+            <code>git status</code><span>Montre les fichiers modifiés</span>
+            <code>git add .</code><span>Prépare les fichiers à être sauvegardés</span>
+            <code>git commit -m "message"</code><span>Enregistre les changements localement</span>
+            <code>git push origin main</code><span>Envoie tes commits sur GitHub</span>
+            <code>git pull</code><span>Récupère le travail des autres</span>
+          </div>
+          <div class="stack">
+            <p class="kicker">Travailler en équipe : les branches</p>
+            <div class="card"><h3 class="mono accent">git branch &lt;nom&gt;</h3><p>Crée une nouvelle version pour travailler à côté.</p></div>
+            <div class="card"><h3 class="mono accent">git checkout &lt;nom&gt;</h3><p>Passe sur cette branche.</p></div>
+          </div>
+        </div>
+        <aside class="notes">Première fois seulement : git config --global user.name "Ton Nom" et git config --global user.email "toi@exemple.com". Vérifier l'installation avec git --version. Les branches : chacun travaille sur sa partie sans casser celle des autres.</aside>
+      </section>
+
+      <section class="slide" data-path="/html-css" data-chapter="HTML">
+        <p class="eyebrow">Chapitre 4 · Introduction à HTML / CSS</p>
+        <h2>Deux technologies fondamentales du web</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">HTML · HyperText Markup Language</p>
+            <h3>La structure</h3>
+            <p>Le langage de balisage standard pour créer la <b>structure et le contenu</b> des pages web.</p>
+            <p>Une série d'éléments (<code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>…) qui définissent titres, paragraphes, images, liens, formulaires, organisés de manière <b>hiérarchique</b>.</p>
+          </div>
+          <div class="card big ink-card">
+            <p class="kicker">CSS · Cascading Style Sheets</p>
+            <h3>L'apparence</h3>
+            <p>Le langage de feuilles de style qui décrit l'<b>apparence et le formatage</b> d'un document HTML : mise en page, couleurs, polices, espacements.</p>
+            <p>Des <b>sélecteurs</b> ciblent les éléments, des <b>déclarations</b> définissent les règles de style.</p>
+          </div>
+        </div>
+        <aside class="notes">HTML = le squelette, CSS = les vêtements. HTML n'est pas un langage de programmation : il ne calcule rien, il décrit ce qu'est chaque contenu. JavaScript a son propre chapitre plus loin.</aside>
+      </section>
+
+
+      <section class="slide" data-path="/outils/raccourcis" data-chapter="HTML">
+        <p class="eyebrow">Outils de programmation · sur Mac, Ctrl devient Cmd et Alt devient Option</p>
+        <h2>Les raccourcis qui font gagner du temps</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <p class="kicker">Dans VS Code</p>
+            <div class="kbd-table">
+              <span><kbd>Ctrl</kbd>+<kbd>S</kbd></span><span>Enregistrer le fichier</span>
+              <span><kbd>Ctrl</kbd>+<kbd>/</kbd></span><span>Commenter ou décommenter la ligne</span>
+              <span><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></span><span>Formater (indenter) le document</span>
+              <span><kbd>Alt</kbd>+<kbd>↑</kbd> <kbd>↓</kbd></span><span>Déplacer la ligne</span>
+              <span><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>↓</kbd></span><span>Dupliquer la ligne</span>
+              <span><kbd>Ctrl</kbd>+<kbd>D</kbd></span><span>Sélectionner l'occurrence suivante</span>
+              <span><kbd>Alt</kbd>+Clic</span><span>Écrire à plusieurs endroits</span>
+              <span><kbd>Ctrl</kbd>+<kbd>`</kbd></span><span>Ouvrir le terminal</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Dans le navigateur</p>
+            <div class="kbd-table">
+              <span><kbd>F12</kbd></span><span>Outils de développement</span>
+              <span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></span><span>Inspecter un élément en cliquant</span>
+              <span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd></span><span>Ouvrir la console (Chrome)</span>
+              <span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></span><span>Mode responsive (outils ouverts)</span>
+              <span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></span><span>Recharger sans le cache</span>
+              <span><kbd>Ctrl</kbd>+<kbd>U</kbd></span><span>Voir le code source</span>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">Faites tester en direct deux raccourcis qui impressionnent : Ctrl+D (sélectionner toutes les occurrences d'un mot et les renommer d'un coup) et Alt+Clic (plusieurs curseurs). Autres raccourcis utiles du guide : Ctrl+P (ouvrir un fichier par son nom), Ctrl+Shift+P (palette de commandes), Ctrl+B (explorateur), Ctrl+F / Ctrl+H (rechercher / remplacer), Ctrl+Z / Ctrl+Y.</aside>
+      </section>
+
+      <section class="slide" data-path="/architecture" data-chapter="HTML">
+        <p class="eyebrow">Organiser son projet</p>
+        <h2>L'architecture d'un projet web</h2>
+        <div class="grid-2 arch">
+          <pre class="code folder">mon-projet/
+├── <span class="t">index.html</span>
+├── css/
+│   └── <span class="a">style.css</span>
+├── js/
+│   └── <span class="a">script.js</span>
+└── images/
+    └── <span class="a">logo.png</span></pre>
+          <div class="stack top">
+            <p class="kicker">index.html relie les autres fichiers</p>
+            <div class="link-rows">
+              <code>&lt;link rel="stylesheet" href="<b>css/style.css</b>"&gt;</code><span>dans le &lt;head&gt;</span>
+              <code>&lt;script src="<b>js/script.js</b>"&gt;&lt;/script&gt;</code><span>juste avant &lt;/body&gt;</span>
+              <code>&lt;img src="<b>images/logo.png</b>" alt="Logo"&gt;</code><span>dans le &lt;body&gt;</span>
+            </div>
+            <p class="small-note">Les chemins sont <b>relatifs</b> au fichier HTML : on part de l'endroit où se trouve index.html.</p>
+          </div>
+        </div>
+        <div class="naming">
+          <p><b>Noms de fichiers :</b> pas d'espaces, pas d'accents, tout en minuscules.</p>
+          <span class="good">ma-photo.jpg</span><span class="bad">Ma Photo été.JPG</span>
+        </div>
+        <aside class="notes">Faites créer cette arborescence tout de suite dans VS Code (clic droit → Nouveau dossier). Erreur classique : une image qui ne s'affiche pas à cause d'un espace, d'un accent ou d'une majuscule dans le nom. Sur un serveur, Logo.png et logo.png sont deux fichiers différents.</aside>
+      </section>
+
+      <section class="slide" data-path="/structure-projet" data-chapter="HTML">
+        <p class="eyebrow">Structure d'un projet web · clique sur un dossier ou un fichier</p>
+        <h2>Un projet plus grand</h2>
+        <div class="tree-wrap" data-explainer>
+          <div class="tree">
+            <p class="tree-head">EXPLORER · WEB</p>
+            <button class="tree-item folder" data-info="Assets (optionnel) : les ressources diverses du site, comme des PDF ou des vidéos.">assets/</button>
+            <button class="tree-item lvl2" data-info="Un document téléchargeable par les visiteurs.">brochure.pdf</button>
+            <button class="tree-item lvl2" data-info="Une vidéo affichée avec la balise video.">video.mp4</button>
+            <button class="tree-item folder" data-info="Polices : les fichiers de police utilisés par le CSS.">fonts/</button>
+            <button class="tree-item lvl2" data-info="Une police chargée avec @font-face dans le CSS.">Roboto-Bold.ttf</button>
+            <button class="tree-item folder" data-info="Images : toutes les images du site (logo, bannières, icônes).">images/</button>
+            <button class="tree-item lvl2" data-info="L'image principale en haut de la page d'accueil.">hero-banner.jpg</button>
+            <button class="tree-item lvl2" data-info="Le logo, utilisé dans le header.">logo.png</button>
+            <button class="tree-item folder" data-info="Pages supplémentaires du site, en plus de la page principale.">pages/</button>
+            <button class="tree-item lvl2 html" data-info="Une page supplémentaire, reliée depuis le menu avec un lien.">about.html</button>
+            <button class="tree-item folder" data-info="JavaScript : les scripts qui rendent la page interactive.">scripts/</button>
+            <button class="tree-item lvl2 js" data-info="Le script principal, relié avec la balise script.">main.js</button>
+            <button class="tree-item lvl2 js" data-info="Un script dédié au formulaire, par exemple pour vérifier les champs.">form.js</button>
+            <button class="tree-item folder" data-info="CSS : les feuilles de style du site.">styles/</button>
+            <button class="tree-item lvl2 css" data-info="La feuille de style principale, reliée avec la balise link.">style.css</button>
+            <button class="tree-item lvl2 css" data-info="Les règles pour adapter la page aux téléphones et tablettes.">responsive.css</button>
+            <button class="tree-item html" data-info="Répertoire racine : index.html est la page principale. C'est elle qui s'ouvre en premier quand on visite le site.">index.html</button>
+            <button class="tree-item" data-info="Fichier de configuration : liste les fichiers que Git doit ignorer.">.gitignore</button>
+            <button class="tree-item" data-info="Fichier de configuration : présente le projet. GitHub l'affiche sur la page du dépôt.">README.md</button>
+            <button class="tree-item" data-info="Fichier de configuration pour les projets Node.js : liste les dépendances.">package.json</button>
+          </div>
+          <div class="tree-info">
+            <p class="kicker">Rôle</p>
+            <p class="tree-out" data-out>Clique sur un élément à gauche pour voir à quoi il sert.</p>
+            <p class="small-note">Règle d'or : un dossier par type de fichier, et la page principale s'appelle toujours <code>index.html</code>.</p>
+          </div>
+        </div>
+        <aside class="notes">Un projet bien rangé se retrouve facilement en équipe. Aujourd'hui, leur projet aura juste index.html, style.css et un dossier images.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/definition" data-chapter="HTML">
+        <p class="eyebrow">Définition</p>
+        <h2>HTML, c'est quoi ?</h2>
+        <div class="def-grid">
+          <div class="stack def-text">
+            <p class="def-quote"><b>HTML</b> (HyperText Markup Language) est le <b>langage de balisage</b> standard qui décrit la <b>structure et le contenu</b> d'une page web.</p>
+            <dl class="acro">
+              <dt><b>H</b>yper<b>T</b>ext</dt><dd>Du texte avec des <b>liens</b> vers d'autres pages</dd>
+              <dt><b>M</b>arkup</dt><dd>Des <b>balises</b> &lt;…&gt; qui étiquettent chaque contenu</dd>
+              <dt><b>L</b>anguage</dt><dd>Des règles communes à <b>tous les navigateurs</b></dd>
+            </dl>
+            <div class="fact-chips">
+              <span>Créé en 1991 par Tim Berners-Lee</span><span>Version actuelle : HTML5</span><span>Fichiers <code>.html</code></span>
+            </div>
+          </div>
+          <div class="stack">
+            <p class="kicker">Ce que tu écris</p>
+            <pre class="code small"><span class="t">&lt;h1&gt;</span>Bonjour !<span class="t">&lt;/h1&gt;</span>
+<span class="t">&lt;p&gt;</span>Je suis un <span class="t">&lt;b&gt;</span>paragraphe<span class="t">&lt;/b&gt;</span>.<span class="t">&lt;/p&gt;</span></pre>
+            <p class="kicker">Ce que le navigateur affiche</p>
+            <div class="render-box"><p class="r-h1">Bonjour !</p><p>Je suis un <b>paragraphe</b>.</p></div>
+          </div>
+        </div>
+        <aside class="notes">Insistez : HTML n'est pas un langage de programmation. Il ne calcule rien, ne prend aucune décision : il dit seulement « ceci est un titre », « ceci est un paragraphe ». Le navigateur lit les balises et dessine la page. HTML5 est aujourd'hui un « standard vivant » qui évolue en continu.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/squelette" data-chapter="HTML">
+        <p class="eyebrow">Clique sur une ligne pour l'expliquer</p>
+        <h2>Le squelette d'une page HTML</h2>
+        <div class="skeleton" data-explainer>
+          <div class="code skel-code">
+<button class="line" data-info="Déclare le document comme du HTML5."><span class="c">&lt;!DOCTYPE html&gt;</span></button>
+<button class="line" data-info="La racine du document. lang indique la langue de la page."><span class="t">&lt;html</span> <span class="a">lang="fr"</span><span class="t">&gt;</span></button>
+<button class="line" data-info="Contient les métadonnées : des informations sur la page, invisibles pour le visiteur."><span class="t">&lt;head&gt;</span></button>
+<button class="line" data-info="Définit l'encodage UTF-8, pour afficher correctement les accents.">  <span class="t">&lt;meta</span> <span class="a">charset="UTF-8"</span><span class="t">&gt;</span></button>
+<button class="line" data-info="Rend la page responsive : sa largeur s'adapte à celle de l'appareil.">  <span class="t">&lt;meta</span> <span class="a">name="viewport" content="width=device-width, initial-scale=1.0"</span><span class="t">&gt;</span></button>
+<button class="line" data-info="Le titre affiché dans l'onglet du navigateur.">  <span class="t">&lt;title&gt;</span>Mon site<span class="t">&lt;/title&gt;</span></button>
+<button class="line" data-info="Lien vers le fichier CSS externe.">  <span class="t">&lt;link</span> <span class="a">rel="stylesheet" href="style.css"</span><span class="t">&gt;</span></button>
+<button class="line" data-info="Lien vers le fichier JS externe. defer : il s'exécute après le chargement du HTML.">  <span class="t">&lt;script</span> <span class="a">src="script.js" defer</span><span class="t">&gt;&lt;/script&gt;</span></button>
+<button class="line" data-info="Fin des métadonnées."><span class="t">&lt;/head&gt;</span></button>
+<button class="line" data-info="Le contenu visible de la page commence ici."><span class="t">&lt;body&gt;</span></button>
+<button class="line" data-info="L'en-tête : contient généralement le titre ou le logo.">  <span class="t">&lt;header&gt;&lt;h1&gt;</span>Bienvenue<span class="t">&lt;/h1&gt;&lt;/header&gt;</span></button>
+<button class="line" data-info="La navigation. Le lien #section1 saute vers l'élément qui a id=&quot;section1&quot;.">  <span class="t">&lt;nav&gt;&lt;a</span> <span class="a">href="#section1"</span><span class="t">&gt;</span>Section 1<span class="t">&lt;/a&gt;&lt;/nav&gt;</span></button>
+<button class="line" data-info="Le contenu principal de la page.">  <span class="t">&lt;main&gt;</span></button>
+<button class="line" data-info="Une section de contenu, avec un id pour pouvoir y faire un lien.">    <span class="t">&lt;section</span> <span class="a">id="section1"</span><span class="t">&gt;</span>…<span class="t">&lt;/section&gt;</span></button>
+<button class="line" data-info="Fin du contenu principal.">  <span class="t">&lt;/main&gt;</span></button>
+<button class="line" data-info="Le pied de page : copyright, contacts, liens.">  <span class="t">&lt;footer&gt;</span>&amp;copy; 2026<span class="t">&lt;/footer&gt;</span></button>
+<button class="line" data-info="Fin du contenu visible, puis fin du document."><span class="t">&lt;/body&gt;&lt;/html&gt;</span></button>
+          </div>
+          <p class="skel-out" data-out>Dans VS Code, tape <code>!</code> puis <kbd>Tab</kbd> pour générer ce squelette.</p>
+        </div>
+        <aside class="notes">Cliquez ligne par ligne. Insistez sur la différence head (invisible) et body (visible). Les balises s'imbriquent comme des boîtes dans des boîtes.</aside>
+      </section>
+
+      <section class="slide" data-path="/outils/emmet" data-chapter="HTML">
+        <p class="eyebrow">Outil intégré à VS Code · tape l'abréviation, puis Tab</p>
+        <h2>Emmet : écrire du HTML plus vite</h2>
+        <div class="emmet">
+          <div class="stack top">
+            <label class="kicker" for="emmetIn">Tape une abréviation</label>
+            <div class="emmet-input"><input id="emmetIn" type="text" value="ul>li*3" spellcheck="false" autocomplete="off"><kbd>Tab</kbd></div>
+            <p class="kicker">Ou essaie un exemple</p>
+            <div class="emmet-ex">
+              <button class="chip" data-abbr="!">!</button>
+              <button class="chip" data-abbr="h1{Bonjour}">h1{Bonjour}</button>
+              <button class="chip" data-abbr=".carte">.carte</button>
+              <button class="chip" data-abbr="ul>li*3">ul&gt;li*3</button>
+              <button class="chip" data-abbr="nav>a*4">nav&gt;a*4</button>
+              <button class="chip" data-abbr="p>lorem10">p&gt;lorem10</button>
+              <button class="chip" data-abbr="ul#menu>li.item{Lien $}*4">ul#menu&gt;li.item{Lien $}*4</button>
+            </div>
+            <div class="emmet-legend">
+              <span><code>&gt;</code> enfant</span><span><code>*3</code> répéter</span><span><code>.x</code> classe</span><span><code>#x</code> id</span><span><code>{…}</code> texte</span><span><code>$</code> numéro</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Ce que VS Code écrit pour toi</p>
+            <pre class="code emmet-out" id="emmetOut"></pre>
+          </div>
+        </div>
+        <aside class="notes">Emmet est déjà installé dans VS Code : rien à télécharger. Démo : dans index.html, tapez ! puis Tab pour le squelette, puis ul>li*3 et Tab. Ensuite, laissez-les deviner le résultat de ul#menu>li.item{Lien $}*4 avant de cliquer. Le simulateur ici gère les cas courants (>, *, ., #, {}, $, lorem) ; le vrai Emmet en fait beaucoup plus (+ pour les frères, par exemple).</aside>
+      </section>
+
+      <section class="slide" data-path="/html/element" data-chapter="HTML">
+        <p class="eyebrow">Anatomie d'un élément</p>
+        <h2>Balise, attribut, contenu</h2>
+        <div class="anatomy">
+          <div class="code xl"><span class="t">&lt;a</span> <span class="a">href="https://google.com"</span><span class="t">&gt;</span>Google<span class="t">&lt;/a&gt;</span></div>
+          <div class="grid-4">
+            <div class="card"><h3 class="tag-c">Balise ouvrante</h3><p>Commence l'élément : &lt;a&gt;</p></div>
+            <div class="card"><h3 class="attr-c">Attribut</h3><p>Une info en plus : où mène le lien</p></div>
+            <div class="card"><h3>Contenu</h3><p>Ce que le visiteur voit</p></div>
+            <div class="card"><h3 class="tag-c">Balise fermante</h3><p>Termine l'élément, avec un /</p></div>
+          </div>
+        </div>
+        <p class="lead small">Certaines balises n'ont pas de fermeture : <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;meta&gt;</code>.</p>
+        <aside class="notes">Balise ouvrante + contenu + balise fermante = un élément. Appuyez sur S maintenant : cette slide est faite des mêmes balises.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/balises" data-chapter="HTML">
+        <p class="eyebrow">Les balises HTML · choisis une famille</p>
+        <h2>Les balises essentielles</h2>
+        <div class="tabbed">
+          <div class="tabs" role="tablist">
+            <button class="chip active" data-tab="structure">Structure</button>
+            <button class="chip" data-tab="texte">Texte &amp; liens</button>
+            <button class="chip" data-tab="listes">Listes</button>
+            <button class="chip" data-tab="medias">Médias</button>
+            <button class="chip" data-tab="formulaires">Formulaires</button>
+            <button class="chip" data-tab="tableaux">Tableaux</button>
+            <button class="chip" data-tab="semantique">Conteneurs</button>
+          </div>
+          <div class="tab-panel tag3" data-panel="structure">
+            <code>&lt;html&gt;</code><span>Racine d'un document HTML</span><kbd>&lt;html&gt; … &lt;/html&gt;</kbd>
+            <code>&lt;head&gt;</code><span>Métadonnées, liens CSS, scripts</span><kbd>&lt;head&gt;&lt;title&gt;Ma page&lt;/title&gt;&lt;/head&gt;</kbd>
+            <code>&lt;title&gt;</code><span>Titre de la page (onglet)</span><kbd>&lt;title&gt;Accueil&lt;/title&gt;</kbd>
+            <code>&lt;body&gt;</code><span>Contenu visible de la page</span><kbd>&lt;body&gt;&lt;p&gt;Bonjour !&lt;/p&gt;&lt;/body&gt;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="texte" hidden>
+            <code>&lt;h1&gt; à &lt;h6&gt;</code><span>Titres de différents niveaux</span><kbd>&lt;h1&gt;Bienvenue&lt;/h1&gt;</kbd>
+            <code>&lt;p&gt;</code><span>Paragraphe</span><kbd>&lt;p&gt;Ceci est un paragraphe.&lt;/p&gt;</kbd>
+            <code>&lt;br&gt;</code><span>Saut de ligne</span><kbd>Bonjour&lt;br&gt;Monde</kbd>
+            <code>&lt;hr&gt;</code><span>Ligne horizontale</span><kbd>&lt;hr&gt;</kbd>
+            <code>&lt;a&gt;</code><span>Lien hypertexte</span><kbd>&lt;a href="https://example.com"&gt;Visitez&lt;/a&gt;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="listes" hidden>
+            <code>&lt;ul&gt;</code><span>Liste non ordonnée (puces)</span><kbd>&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;/ul&gt;</kbd>
+            <code>&lt;ol&gt;</code><span>Liste ordonnée (numéros)</span><kbd>&lt;ol&gt;&lt;li&gt;Premier&lt;/li&gt;&lt;/ol&gt;</kbd>
+            <code>&lt;li&gt;</code><span>Élément de liste</span><kbd>&lt;li&gt;Élément&lt;/li&gt;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="medias" hidden>
+            <code>&lt;img&gt;</code><span>Insérer une image</span><kbd>&lt;img src="logo.png" alt="Logo"&gt;</kbd>
+            <code>&lt;audio&gt;</code><span>Insérer un fichier audio</span><kbd>&lt;audio src="son.mp3" controls&gt;&lt;/audio&gt;</kbd>
+            <code>&lt;video&gt;</code><span>Insérer une vidéo</span><kbd>&lt;video src="video.mp4" controls&gt;&lt;/video&gt;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="formulaires" hidden>
+            <code>&lt;form&gt;</code><span>Formulaire</span><kbd>&lt;form&gt;&lt;input type="text"&gt;&lt;/form&gt;</kbd>
+            <code>&lt;input&gt;</code><span>Champ de saisie</span><kbd>&lt;input type="text" placeholder="Nom"&gt;</kbd>
+            <code>&lt;textarea&gt;</code><span>Zone de texte</span><kbd>&lt;textarea&gt;Votre message&lt;/textarea&gt;</kbd>
+            <code>&lt;button&gt;</code><span>Bouton</span><kbd>&lt;button&gt;Envoyer&lt;/button&gt;</kbd>
+            <code>&lt;select&gt;</code><span>Menu déroulant</span><kbd>&lt;select&gt;&lt;option&gt;Option 1&lt;/option&gt;&lt;/select&gt;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="tableaux" hidden>
+            <code>&lt;table&gt;</code><span>Tableau</span><kbd>&lt;table&gt;&lt;tr&gt;&lt;td&gt;Cellule&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</kbd>
+            <code>&lt;tr&gt;</code><span>Ligne de tableau</span><kbd>&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;</kbd>
+            <code>&lt;td&gt;</code><span>Cellule de tableau</span><kbd>&lt;td&gt;Cellule&lt;/td&gt;</kbd>
+            <code>&lt;th&gt;</code><span>Cellule d'en-tête</span><kbd>&lt;th&gt;Titre&lt;/th&gt;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="semantique" hidden>
+            <code>&lt;div&gt;</code><span>Division générique (bloc)</span><kbd>&lt;div class="container"&gt;Contenu&lt;/div&gt;</kbd>
+            <code>&lt;span&gt;</code><span>Conteneur en ligne</span><kbd>&lt;span style="color:red"&gt;Texte rouge&lt;/span&gt;</kbd>
+            <code>&lt;header&gt;</code><span>En-tête de page ou de section</span><kbd>&lt;header&gt;&lt;h1&gt;Site Web&lt;/h1&gt;&lt;/header&gt;</kbd>
+            <code>&lt;nav&gt;</code><span>Zone de navigation</span><kbd>&lt;nav&gt;&lt;a href="#"&gt;Accueil&lt;/a&gt;&lt;/nav&gt;</kbd>
+            <code>&lt;footer&gt;</code><span>Pied de page</span><kbd>&lt;footer&gt;© 2026&lt;/footer&gt;</kbd>
+          </div>
+        </div>
+        <aside class="notes">Passez de famille en famille et testez chaque exemple dans l'éditeur en direct (slide suivante). Insistez sur l'attribut alt : il est lu aux personnes aveugles et s'affiche si l'image ne charge pas.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/editeur" data-chapter="HTML">
+        <p class="eyebrow">Éditeur en direct · tape et regarde</p>
+        <h2>Écris du HTML, vois le résultat</h2>
+        <div class="editor">
+          <label class="sr" for="liveHtml">Code HTML</label>
+          <textarea id="liveHtml" spellcheck="false">&lt;h1&gt;Salut, moi c'est Sami&lt;/h1&gt;
+&lt;p&gt;J'apprends le &lt;b&gt;développement web&lt;/b&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Mes loisirs&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Football&lt;/li&gt;
+  &lt;li&gt;Musique&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;a href="https://developer.mozilla.org/fr/"&gt;En savoir plus&lt;/a&gt;</textarea>
+          <iframe id="livePreview" title="Aperçu en direct" sandbox=""></iframe>
+        </div>
+        <aside class="notes">Tapez en direct : changez le nom, ajoutez un li, une image avec src="https://picsum.photos/200". Cassez quelque chose exprès (supprimez une balise fermante) pour montrer que le navigateur est tolérant.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/chasse-aux-bugs" data-chapter="HTML">
+        <div class="activity-head">
+          <div><p class="eyebrow">Activité · équipes de 2</p><h2>Chasse aux bugs : trouve les 5 erreurs</h2></div>
+          <div class="row-gap"><span class="score" id="bugScore">0 / 5</span><button class="timer" data-seconds="300">5:00</button></div>
+        </div>
+        <div class="bugs">
+          <div class="code bug-code" id="bugCode">
+<button class="line" data-bug="&lt;h1&gt; est fermée par &lt;/h2&gt;"><span class="t">&lt;h1&gt;</span>Ma page<span class="t">&lt;/h2&gt;</span></button>
+<button class="line" data-bug="Mauvaise imbrication : fermer &lt;/b&gt; avant &lt;/p&gt;"><span class="t">&lt;p&gt;</span>J'adore <span class="t">&lt;b&gt;</span>coder<span class="t">&lt;/p&gt;&lt;/b&gt;</span></button>
+<button class="line" data-bug="L'image n'a pas d'attribut alt"><span class="t">&lt;img</span> <span class="a">src="chat.jpg"</span><span class="t">&gt;</span></button>
+<button class="line" data-bug="href a besoin de guillemets et de https://"><span class="t">&lt;a</span> <span class="a">href=google.com</span><span class="t">&gt;</span>Google<span class="t">&lt;/a&gt;</span></button>
+<button class="line"><span class="t">&lt;ul&gt;</span></button>
+<button class="line" data-bug="Ce &lt;li&gt; n'est jamais fermé">  <span class="t">&lt;li&gt;</span>HTML</button>
+<button class="line">  <span class="t">&lt;li&gt;</span>CSS<span class="t">&lt;/li&gt;</span></button>
+<button class="line"><span class="t">&lt;/ul&gt;</span></button>
+          </div>
+          <ol class="found" id="bugFound"><li class="empty">Clique sur une ligne qui te semble fausse.</li></ol>
+        </div>
+        <aside class="notes">Les équipes repèrent d'abord sur papier, puis viennent cliquer au tableau. Remarque : le navigateur affiche quand même presque tout. C'est pour ça que les bugs se cachent si bien.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/defi-tableau" data-chapter="HTML">
+        <div class="activity-head">
+          <div><p class="eyebrow">Test · reproduis ce tableau</p><h2>Le défi du tableau</h2></div>
+          <button class="timer" data-seconds="900">15:00</button>
+        </div>
+        <div class="grid-2 wide-left">
+          <div class="target-wrap">
+            <table class="target">
+              <caption>Résultats des étudiants – 2ème semestre</caption>
+              <thead>
+                <tr><th rowspan="2">Nom</th><th colspan="3">Notes</th><th rowspan="2">Moyenne</th></tr>
+                <tr><th>Maths</th><th>Informatique</th><th>Physique</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sami Ben Salah</td><td>16</td><td>18</td><td>15</td><td>16.3</td></tr>
+                <tr><td>Yasmine Gharbi</td><td>14</td><td>12</td><td>17</td><td>14.3</td></tr>
+                <tr><td>Karim Jaziri</td><td>19</td><td>18</td><td>20</td><td>19</td></tr>
+                <tr><th colspan="4">Moyenne générale</th><th>16.5</th></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="stack">
+            <p class="kicker">Indices</p>
+            <ul class="hints">
+              <li><code>&lt;caption&gt;</code> pour le titre du tableau</li>
+              <li><code>&lt;thead&gt;</code> et <code>&lt;tbody&gt;</code> pour séparer l'en-tête</li>
+              <li><code>rowspan="2"</code> : une cellule sur 2 lignes</li>
+              <li><code>colspan="3"</code> : une cellule sur 3 colonnes</li>
+              <li><code>border="1"</code> sur <code>&lt;table&gt;</code> pour voir les bordures</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">Solution : table border="1" > caption ; thead avec 2 tr (Nom rowspan 2, Notes colspan 3, Moyenne rowspan 2, puis Maths/Informatique/Physique) ; tbody avec 3 lignes d'étudiants et une dernière ligne th colspan="4" Moyenne générale + th 16.5. Piège fréquent : mettre des tr à l'intérieur d'un th au lieu de thead. Appuyez sur S pour montrer le code complet du tableau.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/defi-tableau/correction" data-chapter="HTML">
+        <p class="eyebrow">Correction du défi</p>
+        <h2>Le tableau, ligne par ligne</h2>
+        <div class="corr-grid">
+          <pre class="code corr-code"><span class="t">&lt;table</span> <span class="a">border="1"</span><span class="t">&gt;</span>
+  <span class="t">&lt;caption&gt;</span>Résultats des étudiants – 2ème semestre<span class="t">&lt;/caption&gt;</span>
+  <span class="t corr-hl">&lt;thead&gt;</span>
+    <span class="t">&lt;tr&gt;</span>
+      <span class="t">&lt;th</span> <span class="a">rowspan="2"</span><span class="t">&gt;</span>Nom<span class="t">&lt;/th&gt;</span>
+      <span class="t">&lt;th</span> <span class="a">colspan="3"</span><span class="t">&gt;</span>Notes<span class="t">&lt;/th&gt;</span>
+      <span class="t">&lt;th</span> <span class="a">rowspan="2"</span><span class="t">&gt;</span>Moyenne<span class="t">&lt;/th&gt;</span>
+    <span class="t">&lt;/tr&gt;</span>
+    <span class="t">&lt;tr&gt;</span>
+      <span class="t">&lt;th&gt;</span>Maths<span class="t">&lt;/th&gt;&lt;th&gt;</span>Informatique<span class="t">&lt;/th&gt;&lt;th&gt;</span>Physique<span class="t">&lt;/th&gt;</span>
+    <span class="t">&lt;/tr&gt;</span>
+  <span class="t corr-hl">&lt;/thead&gt;</span>
+  <span class="t">&lt;tbody&gt;</span>
+    <span class="t">&lt;tr&gt;&lt;td&gt;</span>Sami Ben Salah<span class="t">&lt;/td&gt;&lt;td&gt;</span>16<span class="t">&lt;/td&gt;&lt;td&gt;</span>18<span class="t">&lt;/td&gt;&lt;td&gt;</span>15<span class="t">&lt;/td&gt;&lt;td&gt;</span>16.3<span class="t">&lt;/td&gt;&lt;/tr&gt;</span>
+    <span class="t">&lt;tr&gt;&lt;td&gt;</span>Yasmine Gharbi<span class="t">&lt;/td&gt;&lt;td&gt;</span>14<span class="t">&lt;/td&gt;&lt;td&gt;</span>12<span class="t">&lt;/td&gt;&lt;td&gt;</span>17<span class="t">&lt;/td&gt;&lt;td&gt;</span>14.3<span class="t">&lt;/td&gt;&lt;/tr&gt;</span>
+    <span class="t">&lt;tr&gt;&lt;td&gt;</span>Karim Jaziri<span class="t">&lt;/td&gt;&lt;td&gt;</span>19<span class="t">&lt;/td&gt;&lt;td&gt;</span>18<span class="t">&lt;/td&gt;&lt;td&gt;</span>20<span class="t">&lt;/td&gt;&lt;td&gt;</span>19<span class="t">&lt;/td&gt;&lt;/tr&gt;</span>
+    <span class="t">&lt;tr&gt;</span>
+      <span class="t">&lt;th</span> <span class="a">colspan="4"</span><span class="t">&gt;</span>Moyenne générale<span class="t">&lt;/th&gt;</span>
+      <span class="t">&lt;th&gt;</span>16.5<span class="t">&lt;/th&gt;</span>
+    <span class="t">&lt;/tr&gt;</span>
+  <span class="t">&lt;/tbody&gt;</span>
+<span class="t">&lt;/table&gt;</span></pre>
+          <div class="stack top">
+            <div class="ref2">
+              <code>&lt;caption&gt;</code><span>le titre du tableau</span>
+              <code>rowspan="2"</code><span>« Nom » et « Moyenne » occupent 2 lignes</span>
+              <code>colspan="3"</code><span>« Notes » s'étale sur 3 colonnes</span>
+              <code>colspan="4"</code><span>« Moyenne générale » sur 4 colonnes</span>
+              <code>&lt;th&gt; / &lt;td&gt;</code><span>cellule d'en-tête / cellule de données</span>
+            </div>
+            <p class="warn-note"><b>Erreur fréquente :</b> entourer les lignes d'en-tête par <code>&lt;th&gt;…&lt;/th&gt;</code>. Une cellule ne peut pas contenir des lignes : on utilise <code>&lt;thead&gt;</code>.</p>
+          </div>
+        </div>
+        <aside class="notes">Faites compter les colonnes ensemble : Nom + 3 notes + Moyenne = 5 colonnes. La première ligne d'en-tête n'a que 3 cellules car « Nom » et « Moyenne » descendent sur 2 lignes (rowspan) et « Notes » en couvre 3 (colspan). La dernière ligne : colspan="4" + 1 cellule = 5 colonnes. Le navigateur tolère &lt;th&gt; autour des &lt;tr&gt; et affiche quand même le tableau, mais le HTML est invalide : vérifiable avec validator.w3.org.</aside>
+      </section>
+
+      <section class="slide" data-path="/html/a-propos" data-chapter="HTML">
+        <div class="activity-head">
+          <div><p class="eyebrow">Activité · à toi de jouer</p><h2>Crée ta page « À propos de moi »</h2></div>
+          <button class="timer" data-seconds="900">15:00</button>
+        </div>
+        <div class="grid-3 checklist">
+          <label class="check"><input type="checkbox" id="am1"><span>Un <code>&lt;h1&gt;</code> avec ton nom</span></label>
+          <label class="check"><input type="checkbox" id="am2"><span>Un paragraphe sur toi</span></label>
+          <label class="check"><input type="checkbox" id="am3"><span>Une photo avec un alt</span></label>
+          <label class="check"><input type="checkbox" id="am4"><span>Une liste de tes loisirs</span></label>
+          <label class="check"><input type="checkbox" id="am5"><span>Un lien vers ton site préféré</span></label>
+          <label class="check bonus"><input type="checkbox" id="am6"><span>Bonus : un formulaire de contact</span></label>
+        </div>
+        <p class="lead small">Fichier nommé <code>index.html</code> · pas de photo ? utilise <code>https://picsum.photos/200</code></p>
+        <aside class="notes">Faites le tour de la salle. Erreurs fréquentes : balises non fermées, mauvais chemin d'image, fichier enregistré en .txt, oubli de sauvegarder.</aside>
+      </section>
+
+      <!-- ================= CSS ================= -->
+      <section class="slide" data-path="/exercices/html" data-chapter="HTML">
+        <p class="eyebrow">Exercices corrigés · essaie toujours avant d'ouvrir la correction</p>
+        <h2>Exercices HTML</h2>
+        <div class="tabbed ex-tabbed">
+          <div class="tabs">
+            <button class="chip active" data-tab="ex1">1 · Carte de profil</button>
+            <button class="chip" data-tab="ex2">2 · Planning</button>
+            <button class="chip" data-tab="ex3">3 · Inscription</button>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex1">
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl easy">Facile</span><span>≈ 20 min</span></p>
+              <h3>Ma carte de profil</h3>
+              <p>Crée <code>profil.html</code> contenant :</p>
+              <ul class="ex-list">
+                <li>ton nom en titre principal ;</li>
+                <li>une photo avec un texte alternatif ;</li>
+                <li>un paragraphe de présentation avec un mot en gras ;</li>
+                <li>une liste de 3 compétences ;</li>
+                <li>un lien LinkedIn qui s'ouvre dans un nouvel onglet.</li>
+              </ul>
+              <p class="small-note">À vérifier : un seul <code>&lt;h1&gt;</code>, l'<code>alt</code> rempli, <code>&lt;strong&gt;</code> plutôt que <code>&lt;b&gt;</code>, <code>target="_blank"</code>.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex1">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex1"><!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil de Yasmine Ben Ali</title>
+</head>
+<body>
+  <main>
+    <article class="profil">
+      <img src="images/photo.jpg" alt="Portrait de Yasmine Ben Ali">
+      <h1>Yasmine Ben Ali</h1>
+      <p>Étudiante en <strong>génie informatique</strong>,
+         passionnée par le développement web.</p>
+      <h2>Compétences</h2>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Travail en équipe</li>
+      </ul>
+      <a href="https://www.linkedin.com/" target="_blank">Mon profil LinkedIn</a>
+    </article>
+  </main>
+<\/body>
+</html></script>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex2" hidden>
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl mid">Moyen</span><span>≈ 25 min</span></p>
+              <h3>Le planning de la formation</h3>
+              <ul class="ex-list">
+                <li>un titre au-dessus ;</li>
+                <li>un tableau avec un en-tête : Jour, Horaire, Module, Formateur ;</li>
+                <li>3 lignes de données ;</li>
+                <li>en dessous, une liste numérotée « À apporter » : ordinateur, chargeur, carnet.</li>
+              </ul>
+              <p class="small-note">En-têtes en <code>&lt;th&gt;</code> dans <code>&lt;thead&gt;</code>, données en <code>&lt;td&gt;</code> dans <code>&lt;tbody&gt;</code>.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex2">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex2"><section>
+  <h2>Planning de la formation</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Jour</th>
+        <th>Horaire</th>
+        <th>Module</th>
+        <th>Formateur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Lundi</td><td>14h – 17h</td><td>HTML</td><td>Ahmed</td></tr>
+      <tr><td>Mercredi</td><td>14h – 17h</td><td>CSS</td><td>Sarra</td></tr>
+      <tr><td>Vendredi</td><td>14h – 17h</td><td>JavaScript</td><td>Ahmed</td></tr>
+    </tbody>
+  </table>
+
+  <h3>À apporter</h3>
+  <ol>
+    <li>Ordinateur portable</li>
+    <li>Chargeur</li>
+    <li>Carnet de notes</li>
+  </ol>
+</section></script>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex3" hidden>
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl mid">Moyen</span><span>≈ 30 min</span></p>
+              <h3>Le formulaire d'inscription</h3>
+              <p>Une page sémantique (<code>header</code>, <code>main</code>, <code>footer</code>) avec un formulaire :</p>
+              <ul class="ex-list">
+                <li>nom et e-mail obligatoires ;</li>
+                <li>filière (liste déroulante) ;</li>
+                <li>niveau en boutons radio : débutant / intermédiaire ;</li>
+                <li>une case « J'accepte d'être recontacté » et un bouton d'envoi.</li>
+              </ul>
+              <p class="small-note">Chaque champ a un <code>&lt;label for&gt;</code>. Garde ce fichier : il servira en JavaScript.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex3">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex3"><!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription à la formation web</title>
+</head>
+<body>
+  <header>
+    <h1>Formation développement web</h1>
+  </header>
+  <main>
+    <form id="inscription" action="#" method="post">
+      <label for="nom">Nom complet</label>
+      <input type="text" id="nom" name="nom" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="filiere">Filière</label>
+      <select id="filiere" name="filiere">
+        <option value="info">Informatique</option>
+        <option value="meca">Mécatronique</option>
+        <option value="elec">Électronique</option>
+      </select>
+
+      <fieldset>
+        <legend>Niveau</legend>
+        <input type="radio" id="deb" name="niveau" value="debutant" checked>
+        <label for="deb">Débutant</label>
+        <input type="radio" id="inter" name="niveau" value="intermediaire">
+        <label for="inter">Intermédiaire</label>
+      </fieldset>
+
+      <input type="checkbox" id="contact" name="contact">
+      <label for="contact">J'accepte d'être recontacté</label>
+
+      <button type="submit">S'inscrire</button>
+    </form>
+  </main>
+  <footer>
+    <p>JEENISo · 2026</p>
+  </footer>
+<\/body>
+</html></script>
+          </div>
+        </div>
+        <aside class="notes">Laissez 20 à 30 minutes par exercice, ou donnez-en un en classe et les autres en devoir. « Voir le résultat » affiche la page corrigée, « Voir la correction » le code complet. Exercice 3 : les boutons radio d'un même groupe partagent le même name, c'est ce qui rend le choix exclusif ; fieldset et legend regroupent les options.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/definition" data-chapter="CSS">
+        <div class="activity-head">
+          <div><p class="eyebrow" style="color: var(--accent)">Chapitre 5 · Définition</p><h2>CSS, c'est quoi ?</h2></div>
+          <button class="btn primary" id="cssToggle">Activer le CSS</button>
+        </div>
+        <div class="def-grid">
+          <div class="stack def-text">
+            <p class="def-quote"><b>CSS</b> (Cascading Style Sheets) est le <b>langage de feuilles de style</b> qui décrit l'<b>apparence</b> d'une page HTML : couleurs, polices, tailles, espacements et mise en page.</p>
+            <dl class="acro">
+              <dt><b>C</b>ascading</dt><dd>Si plusieurs règles s'appliquent, une <b>cascade de priorités</b> décide laquelle gagne</dd>
+              <dt><b>S</b>tyle</dt><dd>L'<b>apparence</b> des éléments, pas leur contenu</dd>
+              <dt><b>S</b>heets</dt><dd>Des <b>fichiers séparés</b> (<code>.css</code>), réutilisables sur toutes les pages</dd>
+            </dl>
+            <div class="fact-chips">
+              <span>Créé en 1996 (CSS1)</span><span>Version actuelle : CSS3</span><span>Sans CSS : texte noir sur fond blanc</span>
+            </div>
+          </div>
+          <div class="stack">
+            <p class="kicker" id="cssDemoLabel">Le même HTML, sans CSS</p>
+            <div class="css-demo" id="cssDemo">
+              <h4>Café du Port</h4>
+              <ul class="cd-nav"><li>Accueil</li><li>Menu</li><li>Contact</li></ul>
+              <p>Le meilleur café de la ville, depuis 1998.</p>
+              <span class="cd-btn">Réserver</span>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">Cliquez « Activer le CSS » : le contenu ne change pas d'un mot, seule l'apparence change. C'est exactement la séparation HTML (contenu) / CSS (apparence). Démo bonus : sur un vrai site, désactivez le CSS dans les DevTools pour voir la page « nue ».</aside>
+      </section>
+
+      <section class="slide" data-path="/css" data-chapter="CSS">
+        <p class="eyebrow">La syntaxe</p>
+        <h2>La structure d'une règle CSS</h2>
+        <div class="grid-2">
+          <div class="code rule"><span class="t">sélecteur</span> {
+  <span class="a">propriété</span>: valeur;
+  <span class="a">propriété</span>: valeur;
+  <span class="c">/* ... autres propriétés ... */</span>
+}</div>
+          <div class="code rule"><span class="t">p</span> {
+  <span class="a">color</span>: gray;       <span class="c">/* couleur du texte */</span>
+  <span class="a">font-size</span>: 16px;   <span class="c">/* taille */</span>
+  <span class="a">line-height</span>: 1.5;  <span class="c">/* interligne */</span>
+}</div>
+        </div>
+        <div class="grid-3">
+          <div class="card"><h3 class="tag-c">Sélecteur</h3><p>Qui on stylise : ici tous les &lt;p&gt;</p></div>
+          <div class="card"><h3 class="attr-c">Propriété</h3><p>Ce qu'on change : la couleur, la taille…</p></div>
+          <div class="card"><h3>Valeur</h3><p>Comment : gray, 16px… sans oublier le <b>;</b></p></div>
+        </div>
+        <aside class="notes">Faites lire la règle à voix haute : « Pour tous les paragraphes, couleur grise, taille 16 pixels, interligne 1,5 ». Le point-virgule oublié est l'erreur numéro 1.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/3-facons-exemple" data-chapter="CSS">
+        <p class="eyebrow">Un seul fichier, les trois façons d'ajouter du CSS</p>
+        <h2>Externe, interne et en ligne… ensemble</h2>
+        <div class="three-ways">
+          <div class="stack top">
+            <p class="kicker">index.html</p>
+            <pre class="code tw-code"><span class="t">&lt;head&gt;</span>
+  <span class="tw-tag tw1">1</span><span class="t">&lt;link</span> <span class="a">rel="stylesheet" href="styles.css"</span><span class="t">&gt;</span>
+  <span class="tw-tag tw2">2</span><span class="t">&lt;style&gt;</span>
+      p { color: blue; }
+      .highlight { color: red; font-weight: bold; }
+    <span class="t">&lt;/style&gt;</span>
+<span class="t">&lt;/head&gt;</span>
+<span class="t">&lt;body&gt;</span>
+  <span class="t">&lt;h1&gt;</span>Bienvenue<span class="t">&lt;/h1&gt;</span>
+  <span class="t">&lt;p&gt;</span>Règle interne : bleu<span class="t">&lt;/p&gt;</span>
+  <span class="t">&lt;p</span> <span class="a">class="highlight"</span><span class="t">&gt;</span>Classe : rouge<span class="t">&lt;/p&gt;</span>
+  <span class="tw-tag tw3">3</span><span class="t">&lt;p</span> <span class="a">style="color: purple; font-size: 24px;"</span><span class="t">&gt;</span>
+    En ligne : violet
+  <span class="t">&lt;/p&gt;</span>
+<span class="t">&lt;/body&gt;</span></pre>
+          </div>
+          <div class="stack top">
+            <p class="kicker">styles.css</p>
+            <pre class="code tw-code">body { font-family: Arial, sans-serif; }
+h1 { color: green; text-align: center; }</pre>
+            <p class="kicker">Résultat dans le navigateur</p>
+            <div class="render-box tw-render">
+              <p style="font-family: Arial, sans-serif; color: green; text-align: center; font-size: 28px; font-weight: 700;">Bienvenue</p>
+              <p style="font-family: Arial, sans-serif; color: blue;">Règle interne : bleu</p>
+              <p style="font-family: Arial, sans-serif; color: red; font-weight: bold;">Classe : rouge</p>
+              <p style="font-family: Arial, sans-serif; color: purple; font-size: 24px;">En ligne : violet</p>
+            </div>
+            <div class="tw-legend"><span><i class="tw-tag tw1">1</i>Externe</span><span><i class="tw-tag tw2">2</i>Interne</span><span><i class="tw-tag tw3">3</i>En ligne</span></div>
+          </div>
+        </div>
+        <aside class="notes">Les trois façons cohabitent dans la même page. Le h1 et la police viennent du fichier externe, les paragraphes bleu et rouge du bloc style interne, le violet de l'attribut style. Si deux règles visent le même élément avec la même précision, le style en ligne gagne, puis la règle écrite en dernier (ici le bloc style, placé après le link). Slide suivante : chaque façon en détail.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/3-facons" data-chapter="CSS">
+        <p class="eyebrow">Trois façons d'utiliser le CSS</p>
+        <h2>En ligne, interne ou externe ?</h2>
+        <div class="grid-3 ways">
+          <div class="card">
+            <p class="kicker">En ligne</p>
+            <pre class="code small">&lt;h1 <span class="a">style="color: blue;</span>
+<span class="a">  font-size: 24px;"</span>&gt;
+  Titre
+&lt;/h1&gt;</pre>
+            <p>Avec l'attribut <code>style</code>, directement sur l'élément.</p>
+          </div>
+          <div class="card">
+            <p class="kicker">Interne</p>
+            <pre class="code small"><span class="t">&lt;style&gt;</span>
+  .highlight {
+    color: red;
+    font-weight: bold;
+  }
+<span class="t">&lt;/style&gt;</span></pre>
+            <p>Dans une balise <code>&lt;style&gt;</code> placée dans le <code>&lt;head&gt;</code>.</p>
+          </div>
+          <div class="card best">
+            <p class="kicker">Externe · recommandé</p>
+            <pre class="code small"><span class="t">&lt;link</span> <span class="a">rel="stylesheet"</span>
+<span class="a">  href="styles.css"</span><span class="t">&gt;</span>
+
+<span class="c">/* styles.css */</span>
+h1 { color: green; }</pre>
+            <p>Un fichier séparé, relié avec <code>&lt;link&gt;</code>. Réutilisable sur toutes les pages.</p>
+          </div>
+        </div>
+        <aside class="notes">Expliquez la cascade : si plusieurs règles se contredisent, le style en ligne gagne sur l'interne, qui gagne sur l'externe (à sélecteur égal). Bonne pratique : tout mettre dans un fichier externe.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/selecteurs" data-chapter="CSS">
+        <p class="eyebrow">Clique sur un sélecteur pour voir ce qu'il cible</p>
+        <h2>Les sélecteurs</h2>
+        <div class="sel-lab">
+          <div class="sel-list">
+            <button class="sel-btn" data-sel="#firstname" data-desc="Sélectionne l'élément avec id=&quot;firstname&quot;. Un id est unique.">#firstname</button>
+            <button class="sel-btn" data-sel=".intro" data-desc="Sélectionne tous les éléments avec class=&quot;intro&quot;. Réutilisable.">.intro</button>
+            <button class="sel-btn" data-sel="p" data-desc="Sélectionne tous les éléments &lt;p&gt;.">p</button>
+            <button class="sel-btn" data-sel="div, p" data-desc="Sélectionne tous les &lt;div&gt; ET tous les &lt;p&gt;.">div, p</button>
+            <button class="sel-btn" data-sel="*" data-desc="Sélectionne tous les éléments.">*</button>
+          </div>
+          <div class="dom-demo" id="domDemo">
+            <h4 id="firstname">&lt;h1 id="firstname"&gt; Sami</h4>
+            <p class="intro">&lt;p class="intro"&gt; Étudiant en informatique</p>
+            <div class="demo-div">&lt;div&gt; Un bloc
+              <p>&lt;p&gt; Un paragraphe dans le div</p>
+            </div>
+            <p>&lt;p&gt; Un autre paragraphe</p>
+            <span class="intro">&lt;span class="intro"&gt; Un span</span>
+          </div>
+          <div class="sel-info">
+            <p class="sel-count" id="selCount">0 élément</p>
+            <p id="selDesc">Choisis un sélecteur à gauche.</p>
+          </div>
+        </div>
+        <aside class="notes">Demandez de prédire avant de cliquer : combien d'éléments va cibler .intro ? (2, un p et un span). Règle pratique : utiliser des classes presque partout, l'id pour un seul élément unique.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/specificite" data-chapter="CSS">
+        <p class="eyebrow">Active ou désactive les règles · qui gagne ?</p>
+        <h2>La spécificité : quand deux règles se contredisent</h2>
+        <div class="spec">
+          <div class="stack top">
+            <p class="kicker">Le HTML</p>
+            <pre class="code small"><span class="t">&lt;p</span> <span class="a">id="intro" class="texte"</span><span class="t">&gt;</span>Bonjour !<span class="t">&lt;/p&gt;</span></pre>
+            <p class="kicker">Les règles CSS</p>
+            <label class="spec-rule"><input type="checkbox" id="sp1" data-w="1" data-name="p (balise)" data-color="#6B7280" checked><code><span class="t">p</span> { color: gray; }</code><span class="w">balise</span></label>
+            <label class="spec-rule"><input type="checkbox" id="sp2" data-w="10" data-name=".texte (classe)" data-color="#2E66A3" checked><code><span class="t">.texte</span> { color: blue; }</code><span class="w">classe</span></label>
+            <label class="spec-rule"><input type="checkbox" id="sp3" data-w="100" data-name="#intro (id)" data-color="#C2411A" checked><code><span class="t">#intro</span> { color: red; }</code><span class="w">id</span></label>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Le résultat</p>
+            <div class="spec-preview"><p id="specText">Bonjour !</p></div>
+            <p class="spec-win" id="specWin"></p>
+            <p class="small-note"><b>id &gt; classe &gt; balise.</b> À précision égale, la dernière règle écrite gagne. Préfère les classes : réutilisables et faciles à surcharger.</p>
+          </div>
+        </div>
+        <div class="fact-chips sel-more">
+          <span><code>nav a</code> les &lt;a&gt; dans un &lt;nav&gt;</span><span><code>a:hover</code> lien survolé</span><span><code>li:first-child</code> premier élément</span><span><code>input:focus</code> champ actif</span>
+        </div>
+        <aside class="notes">Décochez #intro : le bleu de la classe gagne. Décochez .texte : le gris de la balise gagne. Demandez à chaque fois de prédire avant de cliquer. Dans les DevTools (onglet Styles), les règles perdantes apparaissent barrées : c'est le réflexe numéro 1 quand « mon CSS ne marche pas ».</aside>
+      </section>
+
+      <section class="slide" data-path="/css/proprietes" data-chapter="CSS">
+        <p class="eyebrow">Les propriétés CSS · choisis une famille</p>
+        <h2>Les propriétés les plus utilisées</h2>
+        <div class="tabbed">
+          <div class="tabs" role="tablist">
+            <button class="chip active" data-tab="texte">Texte</button>
+            <button class="chip" data-tab="boite">Boîte</button>
+            <button class="chip" data-tab="fond">Arrière-plan</button>
+            <button class="chip" data-tab="layout">Mise en page</button>
+          </div>
+          <div class="tab-panel tag3" data-panel="texte">
+            <code>color</code><span>Couleur du texte</span><kbd>color: blue;</kbd>
+            <code>font-size</code><span>Taille du texte</span><kbd>font-size: 20px;</kbd>
+            <code>font-family</code><span>Police du texte</span><kbd>font-family: Arial;</kbd>
+            <code>font-weight</code><span>Épaisseur (gras)</span><kbd>font-weight: bold;</kbd>
+            <code>text-align</code><span>Alignement (left, center, right, justify)</span><kbd>text-align: center;</kbd>
+            <code>text-decoration</code><span>Décoration (souligné, barré)</span><kbd>text-decoration: none;</kbd>
+            <code>line-height</code><span>Interligne</span><kbd>line-height: 1.5;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="boite" hidden>
+            <code>margin</code><span>Espace à l'extérieur de la bordure</span><kbd>margin: 10px;</kbd>
+            <code>padding</code><span>Espace à l'intérieur de la bordure</span><kbd>padding: 20px;</kbd>
+            <code>border</code><span>Style, épaisseur et couleur de la bordure</span><kbd>border: 1px solid black;</kbd>
+            <code>width</code><span>Largeur de l'élément</span><kbd>width: 300px;</kbd>
+            <code>height</code><span>Hauteur de l'élément</span><kbd>height: 200px;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="fond" hidden>
+            <code>background-color</code><span>Couleur de fond</span><kbd>background-color: lightblue;</kbd>
+            <code>background-image</code><span>Image de fond</span><kbd>background-image: url('bg.jpg');</kbd>
+            <code>background-repeat</code><span>Répétition de l'image</span><kbd>background-repeat: no-repeat;</kbd>
+            <code>background-size</code><span>Taille de l'image (cover, contain)</span><kbd>background-size: cover;</kbd>
+            <code>background-position</code><span>Position de l'image</span><kbd>background-position: center;</kbd>
+          </div>
+          <div class="tab-panel tag3" data-panel="layout" hidden>
+            <code>display</code><span>Type d'affichage (flex, grid, block)</span><kbd>display: flex;</kbd>
+            <code>flex-direction</code><span>Direction des éléments (row / column)</span><kbd>flex-direction: row;</kbd>
+            <code>justify-content</code><span>Alignement sur l'axe principal</span><kbd>justify-content: center;</kbd>
+            <code>align-items</code><span>Alignement sur l'axe secondaire</span><kbd>align-items: flex-start;</kbd>
+            <code>grid-template-rows</code><span>Lignes d'une grille</span><kbd>grid-template-rows: auto;</kbd>
+            <code>grid-template-columns</code><span>Colonnes d'une grille</span><kbd>grid-template-columns: 1fr 2fr;</kbd>
+          </div>
+        </div>
+        <aside class="notes">Ne lisez pas tout : montrez une famille, puis testez 2 ou 3 propriétés dans les slides interactives suivantes. Ce tableau sert d'aide-mémoire pendant les exercices.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/couleurs-unites" data-chapter="CSS">
+        <p class="eyebrow">Couleurs, texte et unités</p>
+        <h2>Écrire une couleur, choisir une unité</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <p class="kicker">Quatre façons d'écrire le même rouge</p>
+            <div class="color-rows">
+              <span class="sw" style="background: red"></span><code>color: red;</code><span>un nom</span>
+              <span class="sw" style="background: #ff0000"></span><code>color: #ff0000;</code><span>hexadécimal</span>
+              <span class="sw" style="background: rgb(255, 0, 0)"></span><code>color: rgb(255, 0, 0);</code><span>rouge, vert, bleu</span>
+              <span class="sw alpha"><i style="background: rgba(255, 0, 0, .5)"></i></span><code>color: rgba(255, 0, 0, 0.5);</code><span>avec transparence</span>
+            </div>
+            <div class="units">
+              <code>px</code><span>fixe</span>
+              <code>rem</code><span>relatif à la police de la page (1rem = 16px) : pour les textes</span>
+              <code>%</code><span>relatif au parent</span>
+              <code>vw / vh</code><span>relatif à la fenêtre</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Essaie : change la taille de police de la page</p>
+            <label class="rem-ctl" for="remSlider">html { font-size: <output id="remOut">16px</output>; }</label>
+            <input type="range" id="remSlider" min="10" max="26" value="16">
+            <div class="rem-demo">
+              <div><p class="mono small-label">font-size: 24px</p><p id="remPx" class="rem-sample">Taille fixe</p></div>
+              <div><p class="mono small-label">font-size: 1.5rem</p><p id="remRem" class="rem-sample">Taille relative</p></div>
+            </div>
+            <p class="small-note">Quand l'utilisateur agrandit sa police (vue faible), les tailles en <b>rem</b> suivent, les <b>px</b> non.</p>
+          </div>
+        </div>
+        <aside class="notes">Bougez le curseur : le texte en rem grandit avec la taille racine, celui en px ne bouge pas. C'est pour ça que le guide recommande rem pour les textes. Pour trouver des couleurs : le sélecteur de couleur des DevTools (cliquer sur un carré de couleur dans l'onglet Styles).</aside>
+      </section>
+
+      <section class="slide" data-path="/css/boite" data-chapter="CSS">
+        <p class="eyebrow">Le modèle de boîte · bouge les curseurs</p>
+        <h2>Chaque élément est une boîte</h2>
+        <div class="playground">
+          <div class="controls">
+            <label for="pgMargin">margin <output id="oMargin">24px</output></label><input type="range" id="pgMargin" min="0" max="60" value="24">
+            <label for="pgBorder">border <output id="oBorder">6px</output></label><input type="range" id="pgBorder" min="0" max="20" value="6">
+            <label for="pgPadding">padding <output id="oPadding">24px</output></label><input type="range" id="pgPadding" min="0" max="60" value="24">
+            <label for="pgRadius">border-radius <output id="oRadius">12px</output></label><input type="range" id="pgRadius" min="0" max="80" value="12">
+            <div class="swatches" role="group" aria-label="Couleur de fond">
+              <button class="swatch" data-color="#FFC93C" style="background:#FFC93C" aria-label="Jaune"></button>
+              <button class="swatch" data-color="#8FE3C0" style="background:#8FE3C0" aria-label="Menthe"></button>
+              <button class="swatch" data-color="#FF9E7A" style="background:#FF9E7A" aria-label="Corail"></button>
+              <button class="swatch" data-color="#B9C3FF" style="background:#B9C3FF" aria-label="Lavande"></button>
+            </div>
+          </div>
+          <div class="pg-preview"><div class="margin-zone" id="marginZone"><div class="box" id="pgBox">contenu</div></div></div>
+          <pre class="code" id="pgCode"></pre>
+        </div>
+        <aside class="notes">Bougez chaque curseur et dites ce qui change. padding = espace à l'intérieur de la bordure, margin = espace à l'extérieur (la zone hachurée). Puis ouvrez les DevTools sur un vrai site et survolez un élément : la même boîte colorée apparaît.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/flexbox" data-chapter="CSS">
+        <p class="eyebrow">Mise en page · clique et observe</p>
+        <h2>Flexbox : aligner en une ligne de code</h2>
+        <div class="flex-lab">
+          <div class="flex-btns">
+            <span class="flex-label">justify-content</span>
+            <button class="chip jc active" data-jc="flex-start">flex-start</button>
+            <button class="chip jc" data-jc="center">center</button>
+            <button class="chip jc" data-jc="space-between">space-between</button>
+            <button class="chip jc" data-jc="space-around">space-around</button>
+          </div>
+          <div class="flex-btns">
+            <span class="flex-label">flex-direction</span>
+            <button class="chip fd active" data-fd="row">row</button>
+            <button class="chip fd" data-fd="column">column</button>
+            <span class="flex-label">align-items</span>
+            <button class="chip ai active" data-ai="center">center</button>
+            <button class="chip ai" data-ai="flex-start">flex-start</button>
+            <button class="chip ai" data-ai="flex-end">flex-end</button>
+          </div>
+          <div class="flex-demo" id="flexDemo"><span>Accueil</span><span>À propos</span><span>Contact</span></div>
+          <pre class="code small" id="flexCode"></pre>
+        </div>
+        <aside class="notes">Faites prédire le résultat avant chaque clic. Avec flex-direction: column, justify-content agit verticalement : l'axe principal tourne. C'est la question piège classique.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/grid" data-chapter="CSS">
+        <p class="eyebrow">Mise en page en 2 dimensions · clique et observe</p>
+        <h2>Grid : des lignes et des colonnes</h2>
+        <div class="grid-lab">
+          <div class="flex-btns">
+            <span class="flex-label">grid-template-columns</span>
+            <button class="chip gc" data-gc="1fr">1fr</button>
+            <button class="chip gc" data-gc="repeat(2, 1fr)">repeat(2, 1fr)</button>
+            <button class="chip gc active" data-gc="repeat(3, 1fr)">repeat(3, 1fr)</button>
+            <button class="chip gc" data-gc="1fr 2fr">1fr 2fr</button>
+          </div>
+          <div class="flex-btns">
+            <span class="flex-label">gap</span>
+            <button class="chip gg" data-gg="8px">8px</button>
+            <button class="chip gg active" data-gg="16px">16px</button>
+            <button class="chip gg" data-gg="32px">32px</button>
+            <span class="flex-label">1<sup>re</sup> carte</span>
+            <button class="chip gs" data-gs="0">normale</button>
+            <button class="chip gs" data-gs="1">grid-column: span 2</button>
+          </div>
+          <div class="grid-demo" id="gridDemo"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+          <pre class="code small" id="gridCode"></pre>
+        </div>
+        <aside class="notes">1fr = une fraction de l'espace disponible. À retenir : Flexbox pour aligner dans une seule direction (une barre de menu), Grid pour une vraie grille (une galerie). Bonus du guide : repeat(auto-fit, minmax(200px, 1fr)) crée des colonnes automatiques et responsives sans media query. Jeu pour s'entraîner : Grid Garden.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/responsive" data-chapter="CSS">
+        <p class="eyebrow">Responsive design · glisse pour changer la taille de l'écran</p>
+        <h2>Une page qui s'adapte à tous les écrans</h2>
+        <div class="resp">
+          <div class="stack top">
+            <label class="rem-ctl" for="respSlider">Largeur de l'écran : <output id="respOut">375px</output> · <b id="respDevice">Mobile</b></label>
+            <input type="range" id="respSlider" min="320" max="1280" value="375">
+            <div class="resp-stage"><div class="resp-screen" id="respScreen"><div class="resp-gal" id="respGal"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div>
+          </div>
+          <pre class="code small resp-code"><span class="c">/* Mobile d'abord : une colonne */</span>
+<span class="mq" data-mq="0">.galerie {
+  display: grid;
+  grid-template-columns: 1fr;
+}</span>
+<span class="c">/* Tablette : à partir de 600px */</span>
+<span class="mq" data-mq="600">@media (min-width: 600px) {
+  .galerie { grid-template-columns: repeat(2, 1fr); }
+}</span>
+<span class="c">/* Ordinateur : à partir de 1024px */</span>
+<span class="mq" data-mq="1024">@media (min-width: 1024px) {
+  .galerie { grid-template-columns: repeat(4, 1fr); }
+}</span>
+img { max-width: 100%; }</pre>
+        </div>
+        <aside class="notes">On écrit d'abord le style mobile, puis chaque media query min-width enrichit pour les grands écrans. Les blocs actifs s'allument dans le code. Démo réelle : Ctrl+Shift+M dans les DevTools pour simuler un téléphone. Sans la balise meta viewport dans le head, les media queries ne marchent pas correctement sur mobile.</aside>
+      </section>
+
+      <section class="slide" data-path="/css/missions" data-chapter="CSS">
+        <div class="activity-head">
+          <div><p class="eyebrow">Activité · stylise ta page</p><h2>Missions CSS</h2></div>
+          <div class="row-gap"><span class="score" id="missionScore">0 / 100 pts</span><button class="timer" data-seconds="900">15:00</button></div>
+        </div>
+        <div class="missions" data-tally="missionScore">
+          <label class="mission"><input type="checkbox" id="m1" data-pts="10"><span>Donne une couleur de fond à la page</span><code>background-color</code><b>+10</b></label>
+          <label class="mission"><input type="checkbox" id="m2" data-pts="15"><span>Une police Google Fonts pour le titre</span><code>font-family</code><b>+15</b></label>
+          <label class="mission"><input type="checkbox" id="m3" data-pts="20"><span>Rends ta photo ronde</span><code>border-radius: 50%</code><b>+20</b></label>
+          <label class="mission"><input type="checkbox" id="m4" data-pts="25"><span>Mets les liens du menu en ligne</span><code>display: flex</code><b>+25</b></label>
+          <label class="mission"><input type="checkbox" id="m5" data-pts="30"><span>Les liens changent de couleur au survol</span><code>a:hover</code><b>+30</b></label>
+        </div>
+        <aside class="notes">La gamification occupe les plus rapides pendant que vous aidez les autres. Cochez les missions quand un étudiant vous montre. À la fin, projetez 2 ou 3 pages. Exemple survol : a:hover { color: tomato; }</aside>
+      </section>
+
+      <section class="slide" data-path="/css/frameworks" data-chapter="CSS">
+        <p class="eyebrow">Pour aller plus vite</p>
+        <h2>Les frameworks CSS</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">Bootstrap</p>
+            <p>Framework complet pour des sites <b>responsives</b> et pensés mobile d'abord.</p>
+            <ul class="ticks small">
+              <li>Composants pré-stylés : boutons, modales, navbars</li>
+              <li>Système de grille intégré</li>
+              <li>Plugins JavaScript intégrés</li>
+            </ul>
+            <pre class="code small">&lt;button <span class="a">class="btn btn-primary"</span>&gt;
+  Envoyer
+&lt;/button&gt;</pre>
+          </div>
+          <div class="card big">
+            <p class="kicker">Tailwind CSS</p>
+            <p>Framework <b>« utility-first »</b> : de petites classes réutilisables pour un design sur mesure.</p>
+            <ul class="ticks small">
+              <li>Classes utilitaires personnalisables</li>
+              <li>Aucun composant préconçu : on part de zéro</li>
+              <li>Supprime les styles inutilisés</li>
+            </ul>
+            <pre class="code small">&lt;button <span class="a">class="bg-blue-500 text-white</span>
+<span class="a">  px-4 py-2 rounded"</span>&gt;Envoyer&lt;/button&gt;</pre>
+          </div>
+        </div>
+        <aside class="notes">Message clé : un framework ne remplace pas les bases. Il faut comprendre le CSS pur pour bien utiliser Bootstrap ou Tailwind. À explorer après la session.</aside>
+      </section>
+
+      <!-- ================= GIT ================= -->
+      <section class="slide" data-path="/exercices/css" data-chapter="CSS">
+        <p class="eyebrow">Exercices corrigés · essaie toujours avant d'ouvrir la correction</p>
+        <h2>Exercices CSS</h2>
+        <div class="tabbed ex-tabbed">
+          <div class="tabs">
+            <button class="chip active" data-tab="ex4">4 · Styliser le profil</button>
+            <button class="chip" data-tab="ex5">5 · Barre de navigation</button>
+            <button class="chip" data-tab="ex6">6 · Galerie responsive</button>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex4">
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl easy">Facile</span><span>≈ 25 min</span></p>
+              <h3>Styliser la carte de profil</h3>
+              <p>Reprends <code>profil.html</code> (exercice 1). Dans <code>style.css</code> :</p>
+              <ul class="ex-list">
+                <li>centre la carte, largeur maximale 400px ;</li>
+                <li>fond blanc, coins arrondis, ombre légère, espacement intérieur ;</li>
+                <li>rends la photo ronde ;</li>
+                <li>change la couleur du lien au survol.</li>
+              </ul>
+              <p class="small-note"><code>margin: 0 auto</code> centre un bloc seulement s'il a une largeur : d'où le <code>max-width</code>.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex4">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex4"><!-- Pour la démo, le CSS est dans <style>.
+     Dans ton projet, mets-le dans css/style.css -->
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #eef1f6;
+    margin: 0;
+    padding: 40px 16px;
+  }
+  .profil {
+    max-width: 400px;
+    margin: 0 auto;            /* centre la carte */
+    padding: 32px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  .profil img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;        /* cercle */
+    object-fit: cover;         /* évite la déformation */
+  }
+  .profil ul { list-style: none; padding: 0; }
+  .profil a { color: #1E3A8A; font-weight: bold; }
+  .profil a:hover { color: #E0605A; }
+</style>
+
+<article class="profil">
+  <img src="images/photo.jpg" alt="Portrait de Yasmine Ben Ali">
+  <h1>Yasmine Ben Ali</h1>
+  <p>Étudiante en <strong>génie informatique</strong>.</p>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>Travail en équipe</li>
+  </ul>
+  <a href="https://www.linkedin.com/" target="_blank">Mon profil LinkedIn</a>
+</article></script>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex5" hidden>
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl mid">Moyen</span><span>≈ 30 min</span></p>
+              <h3>Une barre de navigation avec Flexbox</h3>
+              <ul class="ex-list">
+                <li>un <code>&lt;header&gt;</code> : logo (texte) à gauche, menu de 4 liens à droite ;</li>
+                <li>tout centré verticalement ;</li>
+                <li>liens sans soulignement, fond qui change au survol ;</li>
+                <li>sous 600px, logo et menu s'empilent.</li>
+              </ul>
+              <p class="small-note">Deux conteneurs flex imbriqués : <code>.barre</code> écarte logo et menu, <code>.menu</code> aligne les liens.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex5">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex5"><header class="barre">
+  <a href="#" class="logo">JEENISo</a>
+  <nav>
+    <ul class="menu">
+      <li><a href="#">Accueil</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Équipe</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; }
+  .barre {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background-color: #1E3A8A;
+  }
+  .logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .menu {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+  }
+  .menu a:hover { background-color: rgba(255, 255, 255, 0.15); }
+
+  @media (max-width: 600px) {
+    .barre { flex-direction: column; gap: 12px; }
+    .menu { flex-wrap: wrap; justify-content: center; }
+  }
+</style></script>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex6" hidden>
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl mid">Moyen</span><span>≈ 30 min</span></p>
+              <h3>Une galerie responsive avec Grid</h3>
+              <ul class="ex-list">
+                <li>6 cartes (image, titre, court texte) : les services d'une junior entreprise ;</li>
+                <li>1 colonne sur mobile, 2 à partir de 600px, 3 à partir de 1024px ;</li>
+                <li>la première carte occupe 2 colonnes sur ordinateur.</li>
+              </ul>
+              <p class="small-note">Mobile d'abord : chaque media query <code>min-width</code> ajoute des colonnes.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex6">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex6"><section class="services">
+  <article class="service">
+    <img src="images/web.jpg" alt="Écran affichant un site web">
+    <h3>Sites web</h3>
+    <p>Sites vitrines et e-commerce sur mesure.</p>
+  </article>
+  <article class="service">
+    <img src="images/mobile.jpg" alt="Application sur un téléphone">
+    <h3>Applications mobiles</h3>
+    <p>Applications Android et iOS.</p>
+  </article>
+  <article class="service">
+    <img src="images/design.jpg" alt="Maquette d'interface">
+    <h3>Design</h3>
+    <p>Logos, maquettes et chartes graphiques.</p>
+  </article>
+  <article class="service">
+    <img src="images/data.jpg" alt="Graphique de données">
+    <h3>Data</h3>
+    <p>Tableaux de bord et analyse.</p>
+  </article>
+  <article class="service">
+    <img src="images/formation.jpg" alt="Salle de formation">
+    <h3>Formations</h3>
+    <p>Ateliers pour les étudiants.</p>
+  </article>
+  <article class="service">
+    <img src="images/conseil.jpg" alt="Réunion de conseil">
+    <h3>Conseil</h3>
+    <p>Accompagnement de projets.</p>
+  </article>
+</section>
+
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; background: #eef1f6; }
+  .services {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  .service {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;          /* l'image suit les coins */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+  .service img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+  .service h3, .service p { padding: 0 16px; }
+
+  @media (min-width: 600px) {
+    .services { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .services { grid-template-columns: repeat(3, 1fr); }
+    .service:first-child { grid-column: span 2; }
+  }
+</style></script>
+          </div>
+        </div>
+        <aside class="notes">Dans l'aperçu, la fenêtre fait environ 600px de large : la galerie s'affiche donc sur 2 colonnes. Pour voir les 3 colonnes et la carte sur 2 colonnes, ouvrez la correction dans un vrai fichier et agrandissez la fenêtre, ou utilisez Ctrl+Shift+M. Exercice 6 : span 2 n'est placé que dans la media query ordinateur, car sur mobile une seule colonne existe.</aside>
+      </section>
+
+      <!-- ================= JAVASCRIPT ================= -->
+      <section class="slide" data-path="/js" data-chapter="JavaScript">
+        <p class="eyebrow">Chapitre 6 · Définition</p>
+        <h2>JavaScript, c'est quoi ?</h2>
+        <div class="def-grid">
+          <div class="stack def-text">
+            <p class="def-quote"><b>JavaScript</b> est le <b>langage de programmation</b> du web : il donne un <b>comportement</b> à la page, qui réagit aux actions de l'utilisateur.</p>
+            <dl class="acro trio-def">
+              <dt>HTML</dt><dd>la <b>structure</b> : les murs</dd>
+              <dt>CSS</dt><dd>la <b>présentation</b> : la peinture</dd>
+              <dt>JavaScript</dt><dd>le <b>comportement</b> : l'électricité</dd>
+            </dl>
+            <div class="fact-chips">
+              <span>Créé en 1995 par Brendan Eich, en 10 jours</span><span>Moteur V8 : Chrome et Node.js</span><span>Utilisé par Google, Netflix, Facebook, Amazon, LinkedIn, PayPal</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Où l'écrire : juste avant &lt;/body&gt;</p>
+            <pre class="code small"><span class="t">&lt;script</span> <span class="a">src="js/script.js"</span><span class="t">&gt;&lt;/script&gt;</span>
+<span class="t">&lt;/body&gt;</span></pre>
+            <p class="kicker">Ta première ligne, dans js/script.js</p>
+            <pre class="code small">console.log(<span class="a">"Bonjour !"</span>);</pre>
+            <div class="fake-console"><span>Console</span><p>Bonjour !</p></div>
+            <p class="small-note">La console (<kbd>F12</kbd>) affiche chaque erreur avec son numéro de ligne : garde-la ouverte.</p>
+          </div>
+        </div>
+        <aside class="notes">Le script est placé juste avant &lt;/body&gt; pour que le HTML soit déjà chargé quand le JS s'exécute (ou dans le head avec l'attribut defer, comme dans le squelette vu plus tôt). Attention : JavaScript n'a rien à voir avec Java, malgré le nom.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/executer" data-chapter="JavaScript">
+        <p class="eyebrow">Introduction · trois endroits pour exécuter du JavaScript</p>
+        <h2>Où tourne le JavaScript ?</h2>
+        <div class="grid-3 run-places">
+          <div class="card"><p class="kicker">Console du navigateur</p><p><kbd>F12</kbd> → onglet Console. Idéal pour tester une ligne.</p><pre class="code small">console.log("Formation JS");
+5 + 4</pre></div>
+          <div class="card"><p class="kicker">Node.js</p><p>Tape <code>node</code> dans un terminal pour ouvrir une console JS.</p><pre class="code small">&gt; let a = 5;
+&gt; let b = 12;
+&gt; a + b
+17</pre></div>
+          <div class="card best-card"><p class="kicker">Fichier .js · la vraie façon</p><p>Un script relié à ta page HTML.</p><pre class="code small"><span class="t">&lt;script</span> <span class="a">src="js/main.js" defer</span><span class="t">&gt;&lt;/script&gt;</span></pre></div>
+        </div>
+        <ul class="ticks small rules3">
+          <li><code>defer</code> : le script s'exécute après le chargement du HTML</li>
+          <li>Un fichier <code>.js</code> par projet, rangé dans le dossier <code>js/</code></li>
+          <li>Évite le JavaScript dans les attributs HTML (<code>onclick="…"</code>)</li>
+        </ul>
+        <aside class="notes">Faites-leur ouvrir la console de Chrome et taper console.log('Bonjour') puis 5 + 4. Puis créer js/main.js dans leur projet et vérifier le message dans la console. Sans defer, un script placé dans le head s'exécute avant que le HTML existe : document.querySelector renverra null. Node.js est optionnel aujourd'hui.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/variables" data-chapter="JavaScript">
+        <p class="eyebrow">Bases · déclarer une variable</p>
+        <h2>const, let… et jamais var</h2>
+        <div class="grid-2">
+          <pre class="code">let compteur = 0;
+const nom = <span class="a">"Amine"</span>;
+
+compteur = compteur + 1;  <span class="c">// OK</span>
+nom = <span class="a">"Sarah"</span>;            <span class="t">// Erreur !</span></pre>
+          <div class="stack top">
+            <div class="ref3">
+              <span class="ph">Mot-clé</span><span class="ph">Portée</span><span class="ph">Réassignable</span>
+              <code>const</code><span>bloc { }</span><span class="yes">non</span>
+              <code>let</code><span>bloc { }</span><span class="yes">oui</span>
+              <code>var</code><span>fonction</span><span class="no">oui (à éviter)</span>
+            </div>
+            <p class="cmp-test"><b>Règle :</b> <code>const</code> par défaut, <code>let</code> si la valeur change, jamais <code>var</code>.</p>
+          </div>
+        </div>
+        <aside class="notes">const empêche la réassignation, pas la modification d'un tableau ou d'un objet (on le voit plus loin). var a une portée de fonction et est « hoisté » : source de bugs, on ne l'utilise plus.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/types" data-chapter="JavaScript">
+        <p class="eyebrow">Bases · le typage est dynamique, <code>typeof x</code> donne le type</p>
+        <h2>Types : par valeur ou par référence</h2>
+        <div class="grid-2">
+          <div class="card big">
+            <p class="kicker">Primitifs · copiés par valeur</p>
+            <p><code>string</code> <code>number</code> <code>boolean</code> <code>undefined</code> <code>null</code> <code>symbol</code> <code>bigint</code></p>
+            <p>Stockés directement en mémoire · <b>immuables</b> · comparés <b>par valeur</b></p>
+            <pre class="code small">let a = 5;
+let b = a;
+b = 10;     <span class="c">// a vaut toujours 5</span></pre>
+          </div>
+          <div class="card big ink-card">
+            <p class="kicker">Non primitifs · passés par référence</p>
+            <p><code>object</code> <code>array</code> <code>function</code> <code>date</code> <code>regexp</code></p>
+            <p>Stockés par référence · <b>mutables</b> · comparés <b>par référence</b></p>
+            <pre class="code small">const t1 = [1, 2];
+const t2 = t1;
+t2.push(3); <span class="c">// t1 = [1, 2, 3] !</span></pre>
+          </div>
+        </div>
+        <p class="lead small">t2 n'est pas une copie : c'est une <span class="mark">deuxième étiquette</span> sur le même tableau. Pour copier : <code>[...t1]</code>.</p>
+        <aside class="notes">Démonstration importante dans le bac à sable : modifier t2 modifie aussi t1. Anecdote : typeof null renvoie "object", un bug historique du langage jamais corrigé pour ne pas casser le web.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/conditions" data-chapter="JavaScript">
+        <p class="eyebrow">Bases · glisse la note et regarde quelle branche s'exécute</p>
+        <h2>Comparer et décider</h2>
+        <div class="cond-lab">
+          <div class="stack top">
+            <label class="rem-ctl" for="noteSlider">const note = <output id="noteOut">14</output>;</label>
+            <input type="range" id="noteSlider" min="0" max="20" value="14">
+            <pre class="code small cond-code"><span class="cb" data-b="a">if (note &gt;= 16) {
+  console.log(<span class="a">"Très bien"</span>);
+}</span> <span class="cb" data-b="b">else if (note &gt;= 10) {
+  console.log(<span class="a">"Admis"</span>);
+}</span> <span class="cb" data-b="c">else {
+  console.log(<span class="a">"Rattrapage"</span>);
+}</span>
+
+const mention = note &gt;= 10 ? <span class="a">"Admis"</span> : <span class="a">"Rattrapage"</span>;</pre>
+            <div class="fake-console"><span>Console</span><p id="condOut">Admis</p></div>
+          </div>
+          <div class="stack top">
+            <div class="ref2">
+              <code>===</code><span>Égalité stricte (valeur et type) : <b>toujours</b></span>
+              <code>==</code><span>Convertit les types : source de bugs</span>
+              <code>&amp;&amp; || !</code><span>ET, OU, NON</span>
+              <code>c ? a : b</code><span>Ternaire : a si vrai, sinon b</span>
+            </div>
+            <p class="kicker">Valeurs « fausses » dans un if</p>
+            <div class="fact-chips falsy"><span>false</span><span>0</span><span>""</span><span>null</span><span>undefined</span><span>NaN</span></div>
+            <p class="small-note">Toutes les autres valeurs sont vraies. <code>5 == "5"</code> → true, <code>5 === "5"</code> → false.</p>
+          </div>
+        </div>
+        <aside class="notes">Faites glisser la note pour parcourir les trois branches. Règle d'équipe : === partout. Faites tester 5 == "5" puis 5 === "5" dans la console. Le ternaire est une écriture courte pour une condition simple : ne pas l'imbriquer.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/boucles" data-chapter="JavaScript">
+        <p class="eyebrow">Bases · répéter une action</p>
+        <h2>Les boucles</h2>
+        <div class="grid-3 loops">
+          <div class="card"><p class="kicker">for · nombre de tours connu</p><pre class="code small">for (let i = 0; i &lt; 3; i++) {
+  console.log(i);
+}
+<span class="c">// 0, 1, 2</span></pre></div>
+          <div class="card"><p class="kicker">for … of · parcourir un tableau</p><pre class="code small">const fruits = [<span class="a">"Pomme"</span>, <span class="a">"Banane"</span>];
+for (const f of fruits) {
+  console.log(f);
+}</pre></div>
+          <div class="card"><p class="kicker">while · tant que c'est vrai</p><pre class="code small">let n = 3;
+while (n &gt; 0) {
+  n--;
+}</pre></div>
+        </div>
+        <p class="lead small"><code>break</code> sort de la boucle, <code>continue</code> passe au tour suivant. Attention à la <b>boucle infinie</b> avec while.</p>
+        <div class="mini-ex"><b>Mini-exercice :</b> affiche la table de multiplication de 7 dans la console (7 × 1 = 7 … 7 × 10 = 70).</div>
+        <aside class="notes">Montrez une boucle infinie (sans l'exécuter !) : while (true) {}. Solution du mini-exercice : for (let i = 1; i &lt;= 10; i++) { console.log(`7 × ${i} = ${7 * i}`); } — à tester dans le bac à sable.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/fonctions" data-chapter="JavaScript">
+        <p class="eyebrow">Fonctions · des paramètres en entrée, un résultat avec return</p>
+        <h2>Écrire une fonction</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <p class="kicker">Classique</p>
+            <pre class="code small">function additionner(a, b) {
+  return a + b;
+}
+console.log(additionner(2, 3)); <span class="c">// 5</span>
+
+const carre = function (x) { return x * x; };</pre>
+            <ul class="ticks small">
+              <li>Les variables déclarées dedans sont <b>locales</b></li>
+              <li>Sans <code>return</code>, la fonction renvoie <code>undefined</code></li>
+              <li>Une fonction est une valeur : on peut la passer à une autre</li>
+            </ul>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Fléchée · plus courte</p>
+            <pre class="code small"><span class="c">// classique</span>
+function saluer(nom) {
+  return <span class="a">"Salut "</span> + nom;
+}
+
+<span class="c">// fléchée : même résultat</span>
+const saluer = (nom) =&gt; <span class="a">"Salut "</span> + nom;
+const double = n =&gt; n * 2;</pre>
+            <p class="small-note">Sans accolades, la valeur est retournée automatiquement. Idéal pour <code>map</code>, <code>filter</code>, <code>addEventListener</code>.</p>
+          </div>
+        </div>
+        <aside class="notes">Le point « une fonction est une valeur » prépare les callbacks : addEventListener, map, filter reçoivent tous des fonctions. Différence avancée à ne pas détailler : une fonction fléchée n'a pas son propre this.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/tableaux" data-chapter="JavaScript">
+        <p class="eyebrow">Données · clique une méthode et regarde le tableau changer</p>
+        <h2>Les tableaux</h2>
+        <div class="arr-lab">
+          <div class="stack top">
+            <pre class="code small">const fruits = [<span class="a">"Pomme"</span>, <span class="a">"Banane"</span>, <span class="a">"Orange"</span>];
+const nombres = new Array(1, 2, 3, 4);  <span class="c">// autre écriture</span></pre>
+            <div class="arr-view" id="arrView"></div>
+            <div class="arr-btns">
+              <button class="dom-act" data-arr="push"><code>fruits.push("Kiwi")</code><span>ajoute à la fin</span></button>
+              <button class="dom-act" data-arr="pop"><code>fruits.pop()</code><span>retire le dernier</span></button>
+              <button class="dom-act" data-arr="unshift"><code>fruits.unshift("Fraise")</code><span>ajoute au début</span></button>
+              <button class="dom-act" data-arr="shift"><code>fruits.shift()</code><span>retire le premier</span></button>
+              <button class="dom-act" data-arr="indexOf"><code>fruits.indexOf("Pomme")</code><span>indice, ou -1</span></button>
+              <button class="dom-act" data-arr="includes"><code>fruits.includes("Kiwi")</code><span>true ou false</span></button>
+            </div>
+            <div class="fake-console"><span>Résultat</span><p id="arrOut">clique une méthode</p></div>
+          </div>
+          <div class="stack top">
+            <pre class="code small">const notes = [12, 8, 15, 6];</pre>
+            <button class="dom-act" data-hof="filter"><code>notes.filter(n =&gt; n &gt;= 10)</code><span>garde ceux qui passent le test</span></button>
+            <button class="dom-act" data-hof="map"><code>notes.map(n =&gt; n * 2)</code><span>transforme chaque élément</span></button>
+            <button class="dom-act" data-hof="forEach"><code>notes.forEach(n =&gt; console.log(n))</code><span>agit, ne renvoie rien</span></button>
+            <div class="fake-console"><span>Résultat</span><p id="hofOut">clique une méthode</p></div>
+            <p class="small-note">map et filter <b>ne modifient pas</b> le tableau d'origine : ils en créent un nouveau.</p>
+          </div>
+        </div>
+        <aside class="notes">Les indices commencent à 0 : fruits[0] vaut "Pomme" ; fruits.length donne la taille. Faites prédire le résultat avant chaque clic. map et filter sont la base de tout le code moderne (React inclus).</aside>
+      </section>
+
+      <section class="slide" data-path="/js/objets" data-chapter="JavaScript">
+        <p class="eyebrow">Données · regrouper des informations</p>
+        <h2>Objets et tableaux d'objets</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <pre class="code small">const etudiant = {
+  nom: <span class="a">"Amine"</span>,
+  age: 19,
+  saluer() { return <span class="a">"Salut "</span> + this.nom; }
+};
+etudiant.nom;      <span class="c">// "Amine"</span>
+etudiant[<span class="a">"age"</span>];   <span class="c">// 19</span></pre>
+            <ul class="ticks small">
+              <li>Un objet = des paires <b>clé: valeur</b></li>
+              <li>Accès par point ou par crochets</li>
+              <li><code>this</code> désigne l'objet dans une méthode</li>
+              <li><code>Object.keys(obj)</code> liste les clés</li>
+            </ul>
+          </div>
+          <div class="stack top">
+            <pre class="code small">const projets = [
+  { titre: <span class="a">"Portfolio"</span>, tech: <span class="a">"HTML"</span> },
+  { titre: <span class="a">"Blog"</span>, tech: <span class="a">"JS"</span> }
+];
+projets.map(p =&gt; p.titre);
+<span class="c">// ["Portfolio", "Blog"]</span>
+projets.filter(p =&gt; p.tech === <span class="a">"JS"</span>);</pre>
+            <div class="card"><p class="kicker">Le format des vraies données</p><p>Les API renvoient des tableaux d'objets en <b>JSON</b>. <code>JSON.stringify</code> transforme en texte, <code>JSON.parse</code> en objet.</p></div>
+          </div>
+        </div>
+        <aside class="notes">Un objet représente une entité (étudiant, produit, projet). Les méthodes sont des fonctions rangées dans l'objet. Le tableau d'objets est la structure de données la plus courante en web : on l'affichera dans la page avec map dans la partie DOM.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/objets-declarer" data-chapter="JavaScript">
+        <p class="eyebrow">Données · de la plus simple à la plus moderne</p>
+        <h2>Trois façons de créer un objet</h2>
+        <div class="grid-3 obj3">
+          <div class="card">
+            <p class="kicker">1 · Notation littérale</p>
+            <pre class="code small">let personne = {
+  nom: <span class="a">"Alice"</span>,
+  age: 30,
+  saluer: function () {
+    console.log(<span class="a">"Je m'appelle "</span>
+      + this.nom);
+  }
+};</pre>
+            <p>Simple, mais <b>pas réutilisable</b> : pour 100 personnes, il faut tout réécrire.</p>
+          </div>
+          <div class="card">
+            <p class="kicker">2 · Fonction constructeur</p>
+            <pre class="code small">function Personne(nom, age) {
+  this.nom = nom;
+  this.age = age;
+}
+
+let alice = new Personne(<span class="a">"Alice"</span>, 30);</pre>
+            <p>Une fonction spéciale qui crée <b>plusieurs objets similaires</b>, appelée avec <code>new</code>.</p>
+          </div>
+          <div class="card best-card">
+            <p class="kicker">3 · Classe · recommandé</p>
+            <pre class="code small">class Personne {
+  constructor(nom, age) {
+    this.nom = nom;
+    this.age = age;
+  }
+  saluer() { … }
+}
+let bob = new Personne(<span class="a">"Bob"</span>, 25);</pre>
+            <p>La version <b>moderne et plus lisible</b> du constructeur.</p>
+          </div>
+        </div>
+        <aside class="notes">Les trois écritures produisent des objets avec les mêmes propriétés. Aujourd'hui, on utilise la notation littérale pour un objet unique, et class dès qu'il en faut plusieurs du même modèle.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/classes" data-chapter="JavaScript">
+        <p class="eyebrow">Données · optionnel si tu as 3 heures</p>
+        <h2>Classes et héritage</h2>
+        <div class="grid-2">
+          <pre class="code small tight">class Animal {
+  constructor(nom) { this.nom = nom; }
+  parler() { console.log(this.nom + <span class="a">" fait du bruit."</span>); }
+}
+
+class Chien extends Animal {
+  constructor(nom, race) {
+    super(nom);
+    this.race = race;
+  }
+  parler() { console.log(`${this.nom} aboie !`); }
+}
+
+new Chien(<span class="a">"Rex"</span>, <span class="a">"Berger"</span>).parler();  <span class="c">// "Rex aboie !"</span></pre>
+          <div class="stack top">
+            <div class="ref2">
+              <code>constructor</code><span>appelé par <code>new</code> à la création</span>
+              <code>super()</code><span>appelle le constructeur du parent</span>
+              <code>extends</code><span>Chien réutilise Animal : <b>héritage</b></span>
+              <code>parler()</code><span>chaque classe le redéfinit : <b>polymorphisme</b></span>
+            </div>
+            <p class="small-note">Les 4 piliers de la POO : encapsulation, héritage, polymorphisme, abstraction.</p>
+          </div>
+        </div>
+        <aside class="notes">Aujourd'hui on n'approfondit que l'héritage et le polymorphisme ; la POO complète est vue en cours de Java. La notation class remplace les anciennes fonctions constructeurs. À sauter en version 3 h.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/poo" data-chapter="JavaScript">
+        <p class="eyebrow">Données · optionnel si tu as 3 heures</p>
+        <h2>La programmation orientée objet (POO)</h2>
+        <div class="grid-2">
+          <div class="ref2 pillars">
+            <code>Encapsulation</code><span>regroupe les données et les méthodes dans un objet</span>
+            <code>Héritage</code><span>une classe réutilise une autre (<code>extends</code>)</span>
+            <code>Polymorphisme</code><span>une même méthode se comporte différemment selon l'objet</span>
+            <code>Abstraction</code><span>cacher les détails, n'exposer que l'essentiel</span>
+          </div>
+          <div class="stack top">
+            <p class="kicker">Getters et setters : contrôler l'accès</p>
+            <pre class="code small">class Personne {
+  constructor(nom, age) { this._nom = nom; this._age = age; }
+
+  get nom() { return this._nom; }
+
+  set age(nouvelAge) {
+    if (nouvelAge &gt; 0) {
+      this._age = nouvelAge;
+    } else {
+      console.log(<span class="a">"L'âge doit être positif."</span>);
+    }
+  }
+}</pre>
+            <p class="small-note">Pour l'abstraction, les <b>méthodes privées</b> (<code>#methode()</code>) empêchent l'accès direct à la logique interne.</p>
+          </div>
+        </div>
+        <aside class="notes">Exemple de polymorphisme parlant : dans une page, TextBox, Select et CheckBox sont tous des éléments de formulaire avec une méthode render(), mais chacun s'affiche à sa façon. Le setter refuse un âge négatif : c'est l'encapsulation en action. La POO complète est vue en cours de Java.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/bases" data-chapter="JavaScript">
+        <div class="activity-head">
+          <div><p class="eyebrow" style="color: var(--accent)">Bac à sable · modifie le code et exécute-le</p><h2>Teste toi-même : le bac à sable</h2></div>
+          <button class="btn primary" id="jsRun">&#9654; Exécuter</button>
+        </div>
+        <div class="tabs js-tabs">
+          <button class="chip active" data-snippet="variables">Variables et types</button>
+          <button class="chip" data-snippet="conditions">Conditions</button>
+          <button class="chip" data-snippet="tableaux">Tableaux et objets</button>
+          <button class="chip" data-snippet="boucles">Boucles</button>
+          <button class="chip" data-snippet="fonctions">Fonctions</button>
+          <button class="chip" data-snippet="pieges">Pièges : prédis le résultat</button>
+        </div>
+        <div class="sandbox">
+          <label class="sr" for="jsCode">Code JavaScript</label>
+          <textarea id="jsCode" spellcheck="false"></textarea>
+          <div class="js-console"><p class="js-console-head">Console</p><div id="jsOut"></div></div>
+        </div>
+        <p class="hint">Raccourci : <kbd>Ctrl</kbd>+<kbd>Entrée</kbd> pour exécuter · règle : <code>const</code> par défaut, <code>let</code> si la valeur change, jamais <code>var</code></p>
+        <aside class="notes">Chaque onglet charge un exemple du guide et l'exécute. Modifiez en direct : changez la note dans Conditions, ajoutez un module dans Tableaux. Faites exprès une faute (oubliez une parenthèse) pour montrer le message d'erreur. Points clés : toujours === (compare aussi le type : 5 === "5" est faux), les tableaux commencent à l'indice 0, une fonction sans return renvoie undefined.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/dom-arbre" data-chapter="JavaScript">
+        <p class="eyebrow">Le DOM · Document Object Model</p>
+        <h2>La page vue comme un arbre</h2>
+        <div class="grid-2">
+          <pre class="code dom-tree">document
+└── html
+    ├── head
+    │   └── title
+    └── body
+        ├── <span class="t">h1</span>
+        └── <span class="t">p</span></pre>
+          <div class="stack top">
+            <p class="def-quote">Le <b>DOM</b> est la page HTML vue comme un <b>arbre d'objets</b> que JavaScript peut lire et modifier.</p>
+            <div class="ref2">
+              <code>document</code><span>la page entière</span>
+              <code>éléments</code><span>les balises : &lt;div&gt;, &lt;p&gt;, &lt;button&gt;…</span>
+              <code>texte</code><span>le contenu des éléments</span>
+              <code>attributs</code><span>class, id, href…</span>
+            </div>
+            <p class="small-note">Modifier le DOM change immédiatement ce que l'on voit, sans recharger la page.</p>
+          </div>
+        </div>
+        <aside class="notes">Faites le parallèle avec les DevTools : l'onglet Elements montre exactement cet arbre. Démo : dans la console, document.querySelector('h1').textContent = 'Coucou'.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/dom-reference" data-chapter="JavaScript">
+        <p class="eyebrow">Le DOM · l'aide-mémoire</p>
+        <h2>Sélectionner, modifier, créer</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <pre class="code small">const titre = document.querySelector(<span class="a">"#titre"</span>);
+const cartes = document.querySelectorAll(<span class="a">".carte"</span>);
+titre.textContent = <span class="a">"Bienvenue"</span>;</pre>
+            <div class="ref2">
+              <code>querySelector(css)</code><span>le premier élément trouvé</span>
+              <code>querySelectorAll(css)</code><span>tous les éléments trouvés</span>
+              <code>getElementById(id)</code><span>l'élément avec cet id</span>
+              <code>getElementsByClassName(c)</code><span>tous les éléments de cette classe</span>
+              <code>textContent</code><span>lit ou remplace le texte</span>
+              <code>innerHTML</code><span>lit ou remplace le HTML intérieur</span>
+            </div>
+            <p class="warn-note">Jamais <code>innerHTML</code> avec du texte saisi par un utilisateur : risque de faille <b>XSS</b>.</p>
+          </div>
+          <div class="stack top">
+            <pre class="code small">const carte = document.createElement(<span class="a">"div"</span>);
+carte.textContent = <span class="a">"Nouveau projet"</span>;
+carte.classList.add(<span class="a">"carte"</span>);
+document.querySelector(<span class="a">"#liste"</span>).append(carte);</pre>
+            <div class="ref2">
+              <code>el.style.color</code><span>changer un style</span>
+              <code>el.classList.add()</code><span>ajouter une classe</span>
+              <code>el.classList.toggle()</code><span>alterner une classe</span>
+              <code>el.setAttribute()</code><span>changer un attribut</span>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">Les sélecteurs sont ceux du CSS : #id, .classe, balise. Montrez console.log(titre) : on récupère l'élément entier, pas seulement son texte. Préférez classList (le style reste dans le CSS) à el.style (style en ligne). Slide suivante : on essaie tout ça en direct.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/dom-lire" data-chapter="JavaScript">
+        <p class="eyebrow">Le DOM · clique pour voir ce que renvoie chaque propriété</p>
+        <h2>textContent, innerHTML ou outerHTML ?</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <pre class="code small"><span class="t">&lt;h1</span> <span class="a">id="titre"</span><span class="t">&gt;&lt;span&gt;</span>Salut<span class="t">&lt;/span&gt;</span> Sami<span class="t">&lt;/h1&gt;</span>
+
+const titre = document.getElementById(<span class="a">"titre"</span>);</pre>
+            <div class="dom-page read-demo"><h4 id="readTitre"><span>Salut</span> Sami</h4></div>
+            <div class="arr-btns read-btns">
+              <button class="dom-act" data-read="el"><code>console.log(titre)</code></button>
+              <button class="dom-act" data-read="inner"><code>titre.innerHTML</code></button>
+              <button class="dom-act" data-read="text"><code>titre.textContent</code></button>
+              <button class="dom-act" data-read="outer"><code>titre.outerHTML</code></button>
+            </div>
+          </div>
+          <div class="stack top">
+            <div class="js-console"><p class="js-console-head">Console</p><div id="readOut"><p>clique une instruction</p></div></div>
+            <div class="ref2">
+              <code>textContent</code><span>le texte seul</span>
+              <code>innerHTML</code><span>le HTML <b>à l'intérieur</b> de l'élément</span>
+              <code>outerHTML</code><span>l'élément <b>complet</b>, balise comprise</span>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">console.log(titre) renvoie l'élément entier, pas seulement son texte. getElementById("titre") et querySelector("#titre") font la même chose ; getElementsByClassName("carte") ressemble à querySelectorAll(".carte"). Les deux écritures existent dans le code que vous lirez sur internet.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/dom" data-chapter="JavaScript">
+        <p class="eyebrow">Le DOM : la page HTML vue comme des objets que JavaScript peut lire et modifier</p>
+        <h2>Sélectionner et modifier la page</h2>
+        <div class="dom-lab">
+          <div class="dom-actions">
+            <button class="dom-act" data-act="text"><code>titre.textContent = "Nouveau titre";</code></button>
+            <button class="dom-act" data-act="toggle"><code>titre.classList.toggle("actif");</code></button>
+            <button class="dom-act" data-act="style"><code>titre.style.color = "red";</code></button>
+            <button class="dom-act" data-act="add"><code>liste.appendChild(nouveauLi);</code></button>
+            <button class="dom-act" data-act="remove"><code>liste.lastElementChild.remove();</code></button>
+            <button class="btn ghost" data-act="reset">Recommencer</button>
+          </div>
+          <div class="stack top">
+            <pre class="code small">const titre = document.querySelector(<span class="a">"h1"</span>);
+const liste = document.querySelector(<span class="a">"#liste"</span>);</pre>
+            <div class="dom-page"><h4 id="domTitre">Ma page</h4><ul id="domListe"><li>HTML</li><li>CSS</li></ul></div>
+            <pre class="code small dom-last" id="domLast">// clique une instruction à gauche</pre>
+          </div>
+        </div>
+        <aside class="notes">Cliquez chaque instruction : la mini-page change en direct, sans recharger. querySelector prend un sélecteur CSS (comme en CSS : "h1", ".carte", "#liste"). Bonne pratique : modifier les classes (classList) et garder le style dans le CSS. Sécurité : ne jamais utiliser innerHTML avec du texte tapé par l'utilisateur (injection de code), préférer textContent.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/evenements" data-chapter="JavaScript">
+        <p class="eyebrow">Les événements · essaie la démo à droite</p>
+        <h2>Réagir aux actions de l'utilisateur</h2>
+        <div class="grid-2 events">
+          <div class="stack top">
+            <pre class="code small">const champ = document.querySelector(<span class="a">"#prenom"</span>);
+const titre = document.querySelector(<span class="a">"h1"</span>);
+
+<span class="c">// à chaque lettre tapée</span>
+champ.addEventListener(<span class="a">"input"</span>, () =&gt; {
+  titre.textContent = <span class="a">`Bonjour ${champ.value} !`</span>;
+});
+
+<span class="c">// formulaire : ne pas recharger la page</span>
+form.addEventListener(<span class="a">"submit"</span>, (event) =&gt; {
+  event.preventDefault();
+});</pre>
+            <div class="ref2 ev-table">
+              <code>click</code><span>ouvrir un menu, valider un bouton</span>
+              <code>mouseover</code><span>survol d'une carte (souvent :hover suffit)</span>
+              <code>input</code><span>recherche en direct pendant la saisie</span>
+              <code>submit</code><span>envoi d'un formulaire de contact</span>
+              <code>keydown</code><span>fermer une fenêtre avec Échap</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <div class="ev-demo">
+              <h4 id="evTitre">Bonjour !</h4>
+              <label class="mono small-label" for="evInput">#prenom</label>
+              <input id="evInput" type="text" placeholder="Tape ton prénom" autocomplete="off">
+              <button class="btn primary" id="evBtn" type="button">Clique-moi</button>
+            </div>
+            <div class="js-console"><p class="js-console-head">Journal des événements</p><div id="evLog"></div></div>
+          </div>
+        </div>
+        <aside class="notes">Tapez un prénom : l'événement input met le titre à jour à chaque lettre. Survolez et cliquez le bouton : le journal montre chaque événement déclenché. Pour aller plus loin (guide 3.8) : fetch permet de récupérer des données d'une API, avec async et await.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/formulaire" data-chapter="JavaScript">
+        <p class="eyebrow">Le DOM · essaie d'envoyer le formulaire vide</p>
+        <h2>Valider un formulaire</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <pre class="code small">const form = document.querySelector(<span class="a">"form"</span>);
+form.addEventListener(<span class="a">"submit"</span>, (e) =&gt; {
+  e.preventDefault();
+  const nom = document.querySelector(<span class="a">"#nom"</span>).value.trim();
+  if (nom === <span class="a">""</span>) {
+    message.textContent = <span class="a">"Nom obligatoire"</span>;
+  }
+});</pre>
+            <div class="ref2">
+              <code>preventDefault()</code><span>empêche l'envoi et le rechargement</span>
+              <code>.value</code><span>lit ce que l'utilisateur a saisi</span>
+              <code>.trim()</code><span>retire les espaces autour du texte</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <form class="ev-demo" id="valForm" novalidate>
+              <label class="mono small-label" for="valNom">#nom</label>
+              <input id="valNom" type="text" placeholder="Ton nom" autocomplete="off">
+              <label class="mono small-label" for="valEmail">#email</label>
+              <input id="valEmail" type="email" placeholder="toi@exemple.com" autocomplete="off">
+              <button class="btn primary" type="submit">Envoyer</button>
+              <p id="valMsg" class="val-msg" aria-live="polite"></p>
+            </form>
+            <p class="small-note">Affiche le message <b>dans la page</b> plutôt qu'avec <code>alert</code>. Et un vrai site revalide toujours côté serveur.</p>
+          </div>
+        </div>
+        <aside class="notes">Testez : envoyer vide, puis un e-mail sans @, puis tout valide. Rappel de la session HTML : name et id du champ. Les attributs required et type="email" font déjà beaucoup de validation côté navigateur ; novalidate les désactive pour tester notre propre code.</aside>
+      </section>
+
+      <section class="slide" data-path="/js/generer-liste" data-chapter="JavaScript">
+        <p class="eyebrow">Le DOM · les données pilotent l'affichage</p>
+        <h2>Générer une liste depuis un tableau</h2>
+        <div class="grid-2">
+          <div class="stack top">
+            <pre class="code small">const projets = [<span id="genArr"></span>];
+const liste = document.querySelector(<span class="a">"#liste"</span>);
+
+liste.innerHTML = projets
+  .map(p =&gt; <span class="a">`&lt;li&gt;${p}&lt;/li&gt;`</span>)
+  .join(<span class="a">""</span>);</pre>
+            <div class="ref2">
+              <code>map</code><span>transforme chaque élément en morceau de HTML</span>
+              <code>join("")</code><span>colle tout en une seule chaîne</span>
+              <code>`${…}`</code><span>insère une variable (accents graves)</span>
+            </div>
+          </div>
+          <div class="stack top">
+            <form class="gen-add" id="genForm">
+              <label class="sr" for="genInput">Nouveau projet</label>
+              <input id="genInput" type="text" placeholder="Ajoute un projet" autocomplete="off">
+              <button class="btn primary" type="submit">projets.push()</button>
+              <button class="btn ghost" type="button" id="genReset">Recommencer</button>
+            </form>
+            <div class="dom-page"><p class="mono small-label">#liste</p><ul id="genList"></ul></div>
+            <p class="small-note">C'est le principe de React et Angular : on change les <b>données</b>, l'affichage suit.</p>
+          </div>
+        </div>
+        <aside class="notes">Ajoutez des projets : le tableau change, la liste est régénérée. Ici les données sont fixes, donc innerHTML est sans risque. Avec du texte saisi par un utilisateur (comme dans cette démo), il faut créer les éléments avec createElement et textContent : c'est ce que fait la démo en coulisse.</aside>
+      </section>
+
+      <section class="slide" data-path="/pratique/tp-portfolio" data-chapter="JavaScript">
+        <div class="activity-head">
+          <div><p class="eyebrow">Travaux pratiques · sur ton projet</p><h2>Rends ta page interactive</h2></div>
+          <div class="row-gap"><span class="score" id="tpTally">0 / 5</span><button class="timer" data-seconds="1500">25:00</button></div>
+        </div>
+        <div class="grid-2 practice">
+          <div class="checklist todo" data-tally="tpTally">
+            <label class="check"><input type="checkbox" id="tp1"><span>Crée <code>js/main.js</code> et relie-le avec <code>defer</code></span></label>
+            <label class="check"><input type="checkbox" id="tp2"><span>Bouton « Mode sombre » : <code>classList.toggle</code> d'une classe sur <code>body</code></span></label>
+            <label class="check"><input type="checkbox" id="tp3"><span>Valide le formulaire de contact : nom et e-mail non vides</span></label>
+            <label class="check"><input type="checkbox" id="tp4"><span>Affiche tes projets depuis un tableau d'objets avec <code>map</code></span></label>
+            <label class="check"><input type="checkbox" id="tp5"><span>Affiche un message de confirmation <b>dans la page</b>, pas avec alert</span></label>
+          </div>
+          <div class="stack top">
+            <div class="card"><p class="kicker">Réussi si…</p>
+              <ul class="ticks small"><li>aucune erreur rouge dans la console</li><li>le mode sombre marche au clic</li><li>un formulaire vide est refusé</li></ul>
+            </div>
+            <div class="card ink-card"><p class="kicker">Bonus</p><p>Mémorise le thème avec <code>localStorage</code> pour le retrouver au rechargement.</p></div>
+          </div>
+        </div>
+        <aside class="notes">Circulez. Erreurs attendues : script sans defer (querySelector renvoie null), mauvaise casse dans les noms, guillemets non fermés. Apprenez-leur à lire l'erreur rouge de la console : le numéro de ligne est indiqué. Corrigez ensemble les 5 dernières minutes. Bonus : localStorage.setItem("theme", "sombre") puis localStorage.getItem("theme") au chargement.</aside>
+      </section>
+
+      <section class="slide" data-path="/exercices/js" data-chapter="JavaScript">
+        <p class="eyebrow">Exercices corrigés · essaie toujours avant d'ouvrir la correction</p>
+        <h2>Exercices JavaScript</h2>
+        <div class="tabbed ex-tabbed">
+          <div class="tabs">
+            <button class="chip active" data-tab="ex7">7 · Le compteur</button>
+            <button class="chip" data-tab="ex8">8 · Liste de tâches</button>
+            <button class="chip" data-tab="ex9">9 · Valider le formulaire</button>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex7">
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl easy">Facile</span><span>≈ 20 min</span></p>
+              <h3>Le compteur</h3>
+              <ul class="ex-list">
+                <li>un nombre affiché (0) ;</li>
+                <li>trois boutons : « − », « Remise à zéro » et « + » ;</li>
+                <li>le nombre ne descend jamais sous 0 ;</li>
+                <li>bonus : il s'affiche en rouge à partir de 10.</li>
+              </ul>
+              <p class="small-note">Une variable garde l'état, une seule fonction met l'affichage à jour.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex7">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex7"><p id="valeur">0</p>
+<button id="moins">−</button>
+<button id="zero">Remise à zéro</button>
+<button id="plus">+</button>
+
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 30px; }
+  #valeur { font-size: 4rem; margin: 10px; }
+  button { font-size: 1.2rem; padding: 8px 16px; }
+  .alerte { color: #E0605A; }
+</style>
+
+<script>
+  let compteur = 0;
+  const affichage = document.querySelector("#valeur");
+
+  function mettreAJour() {
+    affichage.textContent = compteur;
+    affichage.classList.toggle("alerte", compteur >= 10);
+  }
+
+  document.querySelector("#plus").addEventListener("click", () => {
+    compteur++;
+    mettreAJour();
+  });
+  document.querySelector("#moins").addEventListener("click", () => {
+    if (compteur > 0) {
+      compteur--;
+      mettreAJour();
+    }
+  });
+  document.querySelector("#zero").addEventListener("click", () => {
+    compteur = 0;
+    mettreAJour();
+  });
+<\/script></script>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex8" hidden>
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl mid">Moyen</span><span>≈ 35 min</span></p>
+              <h3>La liste de tâches</h3>
+              <ul class="ex-list">
+                <li>un champ texte, un bouton « Ajouter », une liste vide ;</li>
+                <li>la tâche saisie s'ajoute et le champ se vide ;</li>
+                <li>un clic sur une tâche la barre ;</li>
+                <li>chaque tâche a un bouton « Supprimer » ;</li>
+                <li>une tâche vide n'est pas ajoutée.</li>
+              </ul>
+              <p class="small-note">Un <code>&lt;form&gt;</code> avec <code>submit</code> permet aussi de valider avec Entrée. Texte inséré avec <code>textContent</code>, jamais <code>innerHTML</code>.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex8">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex8"><form id="form-tache">
+  <input type="text" id="tache" placeholder="Nouvelle tâche">
+  <button type="submit">Ajouter</button>
+</form>
+<ul id="liste"></ul>
+
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  .terminee { text-decoration: line-through; opacity: 0.6; }
+  #liste li { cursor: pointer; margin: 6px 0; }
+</style>
+
+<script>
+  const form = document.querySelector("#form-tache");
+  const champ = document.querySelector("#tache");
+  const liste = document.querySelector("#liste");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const texte = champ.value.trim();   // retire les espaces inutiles
+    if (texte === "") return;           // tâche vide : on ne fait rien
+
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    span.textContent = texte;
+    const suppr = document.createElement("button");
+    suppr.textContent = "Supprimer";
+
+    span.addEventListener("click", () => li.classList.toggle("terminee"));
+    suppr.addEventListener("click", () => li.remove());
+
+    li.append(span, " ", suppr);
+    liste.appendChild(li);
+    champ.value = "";
+    champ.focus();
+  });
+<\/script></script>
+          </div>
+
+          <div class="tab-panel ex-panel" data-panel="ex9" hidden>
+            <div class="ex-brief">
+              <p class="ex-meta"><span class="lvl hard">Difficile</span><span>≈ 40 min</span></p>
+              <h3>Valider le formulaire d'inscription</h3>
+              <p>Reprends l'exercice 3, ajoute <code>&lt;p id="retour"&gt;</code>. À l'envoi, sans recharger :</p>
+              <ul class="ex-list">
+                <li>le nom fait au moins 3 caractères ;</li>
+                <li>l'e-mail contient « @ » et un point ;</li>
+                <li>erreur : message en rouge ;</li>
+                <li>sinon, en vert : « Merci [nom], inscription enregistrée au niveau [niveau] » et le formulaire se vide.</li>
+              </ul>
+              <p class="small-note">Ajoute <code>novalidate</code> sur le <code>&lt;form&gt;</code> pour tester tes propres messages. Un vrai site revalide toujours côté serveur.</p>
+            </div>
+            <div class="ex-viewer" data-src="src-ex9">
+              <div class="ex-btns"><button class="chip" data-view="result">Voir le résultat</button><button class="chip" data-view="code">Voir la correction</button></div>
+              <div class="ex-screen"><p class="ex-wait">Essaie d'abord tout seul. La solution est ici quand tu es prêt.</p></div>
+            </div>
+            <script type="text/plain" id="src-ex9"><form id="inscription" novalidate>
+  <label for="nom">Nom complet</label>
+  <input type="text" id="nom" name="nom">
+  <label for="email">E-mail</label>
+  <input type="email" id="email" name="email">
+  <fieldset>
+    <legend>Niveau</legend>
+    <input type="radio" id="deb" name="niveau" value="débutant" checked>
+    <label for="deb">Débutant</label>
+    <input type="radio" id="inter" name="niveau" value="intermédiaire">
+    <label for="inter">Intermédiaire</label>
+  </fieldset>
+  <button type="submit">S'inscrire</button>
+  <p id="retour" aria-live="polite"></p>
+</form>
+
+<style>
+  body { font-family: Arial, sans-serif; padding: 16px; }
+  label, input { display: block; margin-bottom: 6px; }
+  .erreur { color: #c0392b; }
+  .succes { color: #2F7D4F; }
+</style>
+
+<script>
+  const form = document.querySelector("#inscription");
+  const retour = document.querySelector("#retour");
+
+  function afficher(message, type) {
+    retour.textContent = message;
+    retour.className = type;
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const nom = document.querySelector("#nom").value.trim();
+    const email = document.querySelector("#email").value.trim();
+    const niveau = document.querySelector('input[name="niveau"]:checked').value;
+
+    if (nom.length < 3) {
+      afficher("Le nom doit contenir au moins 3 caractères.", "erreur");
+      return;
+    }
+    if (!email.includes("@") || !email.includes(".")) {
+      afficher("Veuillez saisir une adresse e-mail valide.", "erreur");
+      return;
+    }
+    afficher(`Merci ${nom}, inscription enregistrée au niveau ${niveau}.`, "succes");
+    form.reset();
+  });
+<\/script></script>
+          </div>
+        </div>
+        <aside class="notes">« Voir le résultat » lance la correction pour de vrai : on peut cliquer le compteur, ajouter des tâches, tester le formulaire avec un nom trop court. Exercice 9 : input[name="niveau"]:checked récupère le bouton radio coché ; chaque return arrête la fonction à la première erreur ; aria-live fait lire le message aux lecteurs d'écran.</aside>
+      </section>
+
+
+
+
+
+
+      <section class="slide" data-path="/git/en-ligne" data-chapter="Publier">
+        <div class="activity-head">
+          <div><p class="eyebrow">Activité · Chapitre 7 · tu as appris Git au chapitre 3</p><h2>Mets ta page en ligne</h2></div>
+          <button class="timer" data-seconds="900">15:00</button>
+        </div>
+        <ol class="mission-steps">
+          <li>Crée un compte gratuit sur <b>github.com</b></li>
+          <li>Nouveau dépôt nommé <code>a-propos</code></li>
+          <li>Dans ton dossier : <code>git init</code>, <code>git add .</code>, <code>git commit</code></li>
+          <li>Relie et <code>git push</code> (GitHub te montre les lignes)</li>
+          <li>Settings → Pages → branche <code>main</code> → Save</li>
+          <li>Attends une minute, ouvre <code>pseudo.github.io/a-propos</code> et partage-le !</li>
+        </ol>
+        <p class="lead small">Git pas installé ? Sur github.com : <b>Add file → Upload files</b>, puis l'étape 5.</p>
+        <aside class="notes">Étape 4 : git remote add origin https://github.com/PSEUDO/a-propos.git, puis git branch -M main, puis git push -u origin main. Le fichier doit s'appeler index.html. Projetez chaque lien en ligne et applaudissez.</aside>
+      </section>
+
+      <!-- ================= FIN ================= -->
+      <section class="slide" data-path="/pratique/defi-final" data-chapter="Publier">
+        <div class="activity-head">
+          <div><p class="eyebrow">Pratique · tout ce que tu as appris</p><h2>Défi final : améliore et republie</h2></div>
+          <div class="row-gap"><span class="score" id="finalTally">0 / 100 pts</span><button class="timer" data-seconds="600">10:00</button></div>
+        </div>
+        <div class="missions" data-tally="finalTally">
+          <label class="mission"><input type="checkbox" id="f1" data-pts="20"><span>Ajoute une section « Mes projets » avec un tableau</span><code>&lt;table&gt;</code><b>+20</b></label>
+          <label class="mission"><input type="checkbox" id="f2" data-pts="20"><span>Mets ton menu en ligne avec flexbox</span><code>display: flex</code><b>+20</b></label>
+          <label class="mission"><input type="checkbox" id="f3" data-pts="10"><span>Ajoute un lien vers ton GitHub dans le footer</span><code>&lt;footer&gt;</code><b>+10</b></label>
+          <label class="mission"><input type="checkbox" id="f4" data-pts="30"><span>Sauvegarde et envoie ton travail</span><code>add · commit · push</code><b>+30</b></label>
+          <label class="mission"><input type="checkbox" id="f5" data-pts="20"><span>Vérifie que ton site en ligne a changé</span><code>github.io</code><b>+20</b></label>
+        </div>
+        <p class="lead small">Bonus : crée une branche <code>git checkout -b nouveau-design</code>, change les couleurs et pousse-la.</p>
+        <aside class="notes">Ce défi remplace le quiz : il fait réviser HTML, CSS et Git en une fois. GitHub Pages met parfois 1 à 2 minutes à se mettre à jour ; faire Ctrl+F5 pour vider le cache. Projetez les meilleurs sites à la fin.</aside>
+      </section>
+
+      <section class="slide thanks deco-full" data-path="/merci" data-chapter="Fin">
+        <div class="grid-2">
+          <div class="stack">
+            <p class="eyebrow">Bravo, tu y es arrivé</p>
+            <h1 class="display">Des questions<span class="accent">?</span></h1>
+            <p class="lead">Il y a trois heures, DNS n'était que trois lettres. Maintenant, tu as une page en ligne.</p>
+          </div>
+          <div class="stack">
+            <p class="eyebrow">Continuer à apprendre, gratuitement</p>
+            <a class="res" href="https://developer.mozilla.org/fr/" target="_blank" rel="noopener"><b>MDN Web Docs</b><span>La référence de tous les développeurs, en français</span></a>
+            <a class="res" href="https://www.freecodecamp.org" target="_blank" rel="noopener"><b>freeCodeCamp</b><span>Cours pratiques et certificats</span></a>
+            <a class="res" href="https://flexboxfroggy.com/#fr" target="_blank" rel="noopener"><b>Flexbox Froggy · Grid Garden</b><span>Deux jeux pour maîtriser Flexbox et Grid</span></a>
+            <a class="res" href="https://validator.w3.org" target="_blank" rel="noopener"><b>W3C Validator</b><span>Vérifie que ton HTML est correct</span></a>
+          </div>
+        </div>
+        <aside class="notes">Récap : le web, front vs back, HTML, CSS, JavaScript, Git et GitHub. Devoir : ajouter une section, puis add, commit, push, et voir le site se mettre à jour. Prochaine étape : les projets avec un framework (React, Angular). Appuyez encore sur → pour la surprise.</aside>
+      </section>
+
+      <section class="slide notfound deco-full" data-path="/la-suite" data-status="404 Not Found" data-chapter="404">
+        <p class="eyebrow">GET /la-suite</p>
+        <h1 class="giant">404</h1>
+        <p class="lead">Cette page n'existe pas encore. C'est <b>toi</b> qui vas la créer.</p>
+        <button class="btn primary" id="restartBtn">&larr; Retour au début</button>
+        <aside class="notes">La blague de la fin : un vrai 404. Leur prochaine page, c'est à eux de l'écrire.</aside>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="bar">
+    <span id="chapter">Accueil</span>
+    <div class="progress"><i id="progress"></i></div>
+    <span id="counter" class="count">1 / 1</span>
+    <span class="keys">← → naviguer · S source · N notes · F plein écran</span>
+  </footer>
+
+  <aside class="drawer" id="sourceDrawer" hidden>
+    <header><b>Code source de cette slide</b><button class="icon-btn" data-close aria-label="Fermer">×</button></header>
+    <pre id="sourceCode"></pre>
+  </aside>
+  <aside class="drawer" id="notesDrawer" hidden>
+    <header><b>Notes du formateur</b><button class="icon-btn" data-close aria-label="Fermer">×</button></header>
+    <p id="notesText"></p>
+  </aside>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
